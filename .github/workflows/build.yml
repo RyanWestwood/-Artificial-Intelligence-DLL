@@ -1,0 +1,30 @@
+name: Build Tests
+on: [pull_request]
+jobs:
+  Build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config: 
+          - {
+            name: "Linux/X64/",
+            os: Ubuntu,
+            args: -G Ninja,
+          }
+          - {
+            name: "Windows/X64/",
+            os: Windows,
+            args: -G Ninja,
+          }
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3    
+        
+      - name: Build project
+        run: |
+          git submodule update --init --recursive
+          cmake ${{ matrix.config.args }} -S . -B ./build
+          cd build
+          ninja
