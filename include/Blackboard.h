@@ -1,4 +1,4 @@
-#include "Blackboard.h"
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <vector>
