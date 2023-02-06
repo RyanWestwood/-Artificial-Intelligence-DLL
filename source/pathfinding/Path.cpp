@@ -1,4 +1,4 @@
-#include "Path.h"
+#include "pathfinding/Path.h"
 
 namespace ai {
 	namespace path {

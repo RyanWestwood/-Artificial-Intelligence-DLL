@@ -1,4 +1,4 @@
-#include "Algorithms.h"
+#include "pathfinding/Algorithms.h"
 #include <algorithm>
 #include <iostream>
 #include <queue>

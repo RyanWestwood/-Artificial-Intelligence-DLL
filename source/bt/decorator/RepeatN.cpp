@@ -1,4 +1,4 @@
-#include "RepeatN.h"
+#include "bt/decorator/RepeatN.h"
 
 namespace ai {
 	namespace bt {

@@ -1,4 +1,4 @@
-#include "Inverter.h"
+#include "bt/decorator/Inverter.h"
 
 namespace ai {
 	namespace bt {

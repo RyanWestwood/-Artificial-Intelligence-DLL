@@ -1,4 +1,4 @@
-#include "Sequence.h"
+#include "bt/composite/Sequence.h"
 
 namespace ai {
 	namespace bt {

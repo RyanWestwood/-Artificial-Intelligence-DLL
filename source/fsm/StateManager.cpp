@@ -1,9 +1,9 @@
-#include "StateManager.h"
+#include "fsm/StateManager.h"
 #include <memory>
 #include <functional>
 #include <Windows.h>
 #include <iostream>
-#include "../Dll.h"
+#include "Dll.h"
 
 namespace ai {
 	namespace fsm {
