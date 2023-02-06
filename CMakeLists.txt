@@ -21,6 +21,5 @@ install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
     PUBLIC_HEADER DESTINATION include
     )
 
-install(DIRECTORY include/
-    DESTINATION include
-    )
+install(DIRECTORY include/ DESTINATION include/ai)
+install(FILES README.md DESTINATION share/licenses/ai_lib)
