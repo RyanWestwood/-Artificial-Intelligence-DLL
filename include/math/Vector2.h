@@ -5,9 +5,13 @@
 struct Vector2 {
 	float x, y;
 
+	Vector2() { x = 0.f, y = 0.f; }
+	Vector2(float x, float y) : x(x), y(y) {}
+	Vector2(int x, int y) : x(float(x)), y(float(y)) {}
+	
 	Vector2 Normalize() {
 		float magnitude = std::sqrtf(x * x + y * y);
-		return Vector2(x/=magnitude, y /= magnitude);
+		return Vector2(x / magnitude, y / magnitude);
 	}
 
 	static float Distance(const Vector2& lhs, const Vector2& rhs){
@@ -16,12 +20,12 @@ struct Vector2 {
 		return std::sqrtf(x * x + y * y);
 	}
 
-	friend constexpr Vector2 operator+(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x + rhs.x, lhs.y + rhs.y); }
-	friend constexpr Vector2 operator-(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x - rhs.x, lhs.y - rhs.y); }
-	friend constexpr Vector2 operator*(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x * rhs.x, lhs.y * rhs.y); }
-	friend constexpr Vector2 operator*(const Vector2& lhs, const float value) { return Vector2(lhs.x * value, lhs.y * value); }
-	friend constexpr Vector2 operator/(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x / rhs.x, lhs.y / rhs.y); }
-	friend constexpr bool operator==(const Vector2& lhs, const Vector2& rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }
-	friend constexpr bool operator!=(const Vector2& lhs, const Vector2& rhs) { return !operator==(lhs, rhs); }
+	friend Vector2 operator+(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x + rhs.x, lhs.y + rhs.y); }
+	friend Vector2 operator-(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x - rhs.x, lhs.y - rhs.y); }
+	friend Vector2 operator*(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x * rhs.x, lhs.y * rhs.y); }
+	friend Vector2 operator*(const Vector2& lhs, const float value) { return Vector2(lhs.x * value, lhs.y * value); }
+	friend Vector2 operator/(const Vector2& lhs, const Vector2& rhs) { return Vector2(lhs.x / rhs.x, lhs.y / rhs.y); }
+	friend bool operator==(const Vector2& lhs, const Vector2& rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }
+	friend bool operator!=(const Vector2& lhs, const Vector2& rhs) { return !operator==(lhs, rhs); }
 	friend std::ostream& operator<<(std::ostream& out, const Vector2& value) { return out << "(" << value.x << ", " << value.y << ")\n"; }
 };
