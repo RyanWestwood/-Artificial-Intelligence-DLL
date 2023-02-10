@@ -12,7 +12,7 @@ namespace ai {
 
 			m_InterceptY = point_on_line.y - m_Gradient * point_on_line.x;
 			m_Point1 = point_on_line;
-			m_Point2 = point_on_line + Vector2{ 1, m_Gradient };
+			m_Point2 = point_on_line + Vector2{ 1.f, m_Gradient };
 
 			m_ApproachSide = GetSide(point_perpendiculat_to_line);
 		}
