@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "../Dll.h"
 #include "../math/Vector2.h"
 
 namespace ai {
@@ -53,7 +52,7 @@ namespace ai {
 			std::vector<NodePtr> m_Neighbours;
 		};
 
-		extern "C++" AI_API std::vector<NodePtr> CreateNodeMap(int, int);
+		std::vector<NodePtr> CreateNodeMap(int, int);
 		void ResetNodeMap(std::vector<NodePtr> nodes);
 	} // namespace PATH
 } // namespace AI

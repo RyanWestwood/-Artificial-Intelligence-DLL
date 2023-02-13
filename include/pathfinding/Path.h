@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "../Dll.h"
 #include "../math/Vector2.h"
 #include "Line.h"
 
@@ -27,6 +26,6 @@ namespace ai {
 			int m_SlowDownIndex;
 		};
 
-		extern "C++" AI_API PathPtr CreatePath();
+		PathPtr CreatePath();
 	} // namespace PATH
 } // namespace AI

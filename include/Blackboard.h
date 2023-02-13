@@ -39,6 +39,6 @@ namespace ai {
 		std::map<std::string, IntPtr> m_Ints;
 		std::string m_Filename;
 	};
-
-	extern "C++" AI_API BlackboardPtr CreateBlackboard(std::string filename);
+	
+	BlackboardPtr CreateBlackboard(std::string filename);
 } // namespace ai
