@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "bt/Node.h"
+#include "Node.h"
 
 class CompositeNode : public Node {
 public:

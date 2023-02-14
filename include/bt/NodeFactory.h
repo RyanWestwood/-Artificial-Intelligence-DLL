@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
-#include "bt/Node.h"
-#include "bt/CompositeNode.h"
+#include "Node.h"
+#include "CompositeNode.h"
 	
 class NodeFactory {
 public:

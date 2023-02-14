@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "bt/Node.h">
+#include "Node.h"
 
 class BehaviourTree {
 public:
