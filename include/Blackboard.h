@@ -1,5 +1,4 @@
 #pragma once
-#include "Dll.h"
 #include <map>
 #include <string>
 #include <memory>
@@ -12,14 +11,7 @@ namespace ai {
 	typedef std::shared_ptr<float> FloatPtr;
 	typedef std::shared_ptr<int> IntPtr;
 
-	class IBlackboard {
-	public:
-		virtual FloatPtr GetFloat(std::string name, float default_value) = 0;
-		virtual BoolPtr GetBool(std::string name, bool default_value) = 0;
-		virtual IntPtr GetInt(std::string name, int default_value) = 0;
-	};
-
-	class Blackboard : public IBlackboard {
+	class Blackboard{
 	public:
 		Blackboard() {}
 		void Initialize(std::string filename);
