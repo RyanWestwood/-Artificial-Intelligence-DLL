@@ -2,13 +2,11 @@
 
 BehaviourTree::BehaviourTree(std::unique_ptr<Node> node) : root(std::move(node)) 
 {
-	
+	result = Status::Running;
 }
 
-void BehaviourTree::Update()
+Status BehaviourTree::Update()
 {
-	Status result = Status::Running;
-	while(result != Status::Success){
-		result = root->Update();
-	}
+	result = root->Update();
+	return result;
 }
