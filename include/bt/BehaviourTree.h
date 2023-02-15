@@ -4,8 +4,8 @@
 
 class BehaviourTree {
 public:
-	BehaviourTree(std::unique_ptr<Node> node) : root(std::move(node)) {}
-	void Update() { root->Update(); }
+	BehaviourTree(std::unique_ptr<Node> node);
+	void Update();
 
 	std::unique_ptr<Node> root;
 };
