@@ -4,8 +4,9 @@
 
 class BehaviourTree {
 public:
+	BehaviourTree(){}
 	BehaviourTree(std::unique_ptr<Node> node);
-	Status Update();
+	void Update();
 
 	std::unique_ptr<Node> root;
 	Status result;

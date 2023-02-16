@@ -5,8 +5,8 @@ BehaviourTree::BehaviourTree(std::unique_ptr<Node> node) : root(std::move(node))
 	result = Status::Running;
 }
 
-Status BehaviourTree::Update()
+void BehaviourTree::Update()
 {
+	if (result == Status::Success) return;
 	result = root->Update();
-	return result;
 }
