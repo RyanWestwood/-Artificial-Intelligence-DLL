@@ -1,14 +1,8 @@
 #pragma once
-#include "../../Dll.h"
-#include "../Node.h"
+#include "../CompositeNode.h"
 
-namespace ai {
-	namespace bt {
-		
-		class Selector : public CompositeNode {
-		public:
-			Selector() {}
-			Status Update();
-		};
-	} // namespace BT
-} // namespace AI
+class Selector : public CompositeNode {
+public:
+	Selector() = default;
+	virtual Status Update() override;
+};

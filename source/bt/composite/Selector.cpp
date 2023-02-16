@@ -1,15 +1,10 @@
 #include "bt/composite/Selector.h"
 
-namespace ai {
-	namespace bt {
-
-		Status Selector::Update() {
-			for (auto child : m_Children) {
-				if (child.Update() == Status::Success) {
-					return Status::Success;
-				}
-			}
-			return Status::Failure;
-		}
-	} // namespace BT
-} // namespace AI
+Status Selector::Update()
+{
+	for (auto& elem : m_Children) {
+		auto result = elem->Update();
+		if(result == Status::Success) return result;
+	}
+	return Status::Failure;
+}

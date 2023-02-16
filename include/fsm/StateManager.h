@@ -1,5 +1,4 @@
 #pragma once
-#include "../Dll.h"
 #include <memory>
 #include <functional>
 #include <string>
@@ -53,8 +52,8 @@ namespace ai {
 			StatePtr m_CurrentState;
 		};
 
-		extern "C++" AI_API ManagerPtr GetStateManager();
-		extern "C++" AI_API StatePtr CreateState(ManagerPtr, std::string, Function);
+		ManagerPtr GetStateManager();
+		StatePtr CreateState(ManagerPtr, std::string, Function);
 
 	} // namespace FSM
 } // namespace AI

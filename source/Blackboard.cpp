@@ -33,7 +33,7 @@ namespace ai {
 		return m_Bools[name];
 	}
 
-	ai::IntPtr Blackboard::GetInt(std::string name, int default_value)
+	IntPtr Blackboard::GetInt(std::string name, int default_value)
 	{
 		if (m_Ints.find(name) == m_Ints.end()) {
 			m_Ints.emplace(name, std::make_shared<int>(default_value));

@@ -1,39 +1,25 @@
 #pragma once
-#include "../Dll.h"
-#include <vector>
+#include <memory>
+#include <functional>
 
-namespace ai {
-	namespace bt {
+enum class Status {
+	Success = 0,
+	Failure,
+	Running,
+	Error
+};
 
-		enum class Status {
-			Success = 0,
-			Failure,
-			Running,
-			Error
-		};
+namespace ai { class Blackboard; }
+class Node {
+public:
+	Node() : m_Blackboard(nullptr) {}
+	Node(std::shared_ptr<ai::Blackboard> b) : m_Blackboard(b), m_Func(nullptr) {}
+	Node(std::shared_ptr<ai::Blackboard> b, std::function<Status()> func) : m_Blackboard(b), m_Func(func) {}
+	Node(std::function<Status()> func) : m_Blackboard(nullptr), m_Func(func) {}
 
-		class Node {
-		public:
-			Node() {}
-			Status Update() { return Status::Error; }
-		};
+	virtual Status Update();
 
-		class Decorator : public Node {
-		public:
-			Decorator() {}
-			Status Update() {}
-
-		protected:
-			Node m_Child;
-		};
-
-		class CompositeNode : public Node {
-		public:
-			CompositeNode() {}
-			void AddChild(Node child) { m_Children.push_back(child); }
-
-		protected:
-			std::vector<Node> m_Children;
-		};
-	} // namespace BT
-} // namespace AI
+private:
+	std::shared_ptr<ai::Blackboard> m_Blackboard;
+	std::function<Status()> m_Func;
+};

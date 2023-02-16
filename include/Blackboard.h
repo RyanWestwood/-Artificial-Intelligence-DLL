@@ -1,5 +1,4 @@
 #pragma once
-#include "Dll.h"
 #include <map>
 #include <string>
 #include <memory>
@@ -11,22 +10,16 @@ namespace ai {
 	typedef std::shared_ptr<bool> BoolPtr;
 	typedef std::shared_ptr<float> FloatPtr;
 	typedef std::shared_ptr<int> IntPtr;
+	typedef std::string Key;
 
-	class IBlackboard {
-	public:
-		virtual FloatPtr GetFloat(std::string name, float default_value) = 0;
-		virtual BoolPtr GetBool(std::string name, bool default_value) = 0;
-		virtual IntPtr GetInt(std::string name, int default_value) = 0;
-	};
-
-	class Blackboard : public IBlackboard {
+	class Blackboard{
 	public:
 		Blackboard() {}
 		void Initialize(std::string filename);
 
-		FloatPtr GetFloat(std::string name, float default_value);
-		BoolPtr GetBool(std::string name, bool default_value);
-		IntPtr GetInt(std::string name, int default_value);
+		FloatPtr GetFloat(Key name, float default_value);
+		BoolPtr GetBool(Key name, bool default_value);
+		IntPtr GetInt(Key name, int default_value);
 
 	private:
 		void ReadFile();
@@ -34,11 +27,11 @@ namespace ai {
 		void PrintBoard();
 
 	private:
-		std::map<std::string, FloatPtr> m_Floats;
-		std::map<std::string, BoolPtr> m_Bools;
-		std::map<std::string, IntPtr> m_Ints;
+		std::map<Key, FloatPtr> m_Floats;
+		std::map<Key, BoolPtr> m_Bools;
+		std::map<Key, IntPtr> m_Ints;
 		std::string m_Filename;
 	};
-
-	extern "C++" AI_API BlackboardPtr CreateBlackboard(std::string filename);
+	
+	BlackboardPtr CreateBlackboard(std::string filename);
 } // namespace ai
