@@ -2,6 +2,7 @@
 #include <memory>
 #include "Node.h"
 
+namespace ai{
 class BehaviourTree {
 public:
 	BehaviourTree(){}
@@ -11,3 +12,4 @@ public:
 	std::unique_ptr<Node> root;
 	Status result;
 };
+}
