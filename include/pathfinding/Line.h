@@ -4,13 +4,7 @@
 namespace ai {
 	namespace path {
 		
-		class ILine {
-		public:
-			virtual bool HasCrossedLine(Vector2 point) = 0;
-			virtual float DistanceFromPoint(Vector2 point) = 0;
-		};
-
-		class Line : public ILine{
+		class Line {
 		public:
 			Line(Vector2 point_on_line, Vector2 point_perpendiculat_to_line);
 			bool GetSide(Vector2 point);

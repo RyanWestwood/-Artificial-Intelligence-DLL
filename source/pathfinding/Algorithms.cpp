@@ -58,7 +58,6 @@ namespace ai
                                 NodePtr              end_node,
                                 Obstacle             layer)
     {
-
       ResetNodeMap(nodes);
 
       auto Hueristic = [](NodePtr current, NodePtr destination) {
