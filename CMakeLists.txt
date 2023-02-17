@@ -14,6 +14,11 @@ set(AI_LIBRARY_VERSION "${AI_LIBRARY_VERSION_MAJOR}.${AI_LIBRARY_VERSION_MINOR}.
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 file(GLOB_RECURSE SOURCE "source/*.*")
+foreach(SRC_FILE ${SOURCE})
+  file(RELATIVE_PATH RELATIVE ${CMAKE_SOURCE_DIR} ${SRC_FILE})
+  get_filename_component(SRC_FILE_DIR ${RELATIVE} DIRECTORY)
+  source_group(${SRC_FILE_DIR} FILES ${SRC_FILE})
+endforeach()
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE})
 
