@@ -64,18 +64,13 @@ namespace ai
         auto current_pos     = current->GetPosition();
         auto destination_pos = destination->GetPosition();
 
-        float xDist = std::max(current_pos.x, destination_pos.x) -
-          std::min(current_pos.x, destination_pos.x);
-
-        float yDist = std::max(current_pos.y, destination_pos.y) -
-          std::min(current_pos.y, destination_pos.y);
+        float xDist = std::max(current_pos.x, destination_pos.x) - std::min(current_pos.x, destination_pos.x);
+        float yDist = std::max(current_pos.y, destination_pos.y) - std::min(current_pos.y, destination_pos.y);
 
         return (xDist * xDist) + (yDist * yDist);
       };
 
-      struct compare
-      {
-        bool operator()(const NodePtr& lhs, const NodePtr& rhs) const
+      auto Compare = [](const NodePtr& lhs, const NodePtr& rhs) {
         {
           if(lhs->m_Costs.m_TotalCost == rhs->m_Costs.m_TotalCost)
           {
@@ -85,22 +80,21 @@ namespace ai
         }
       };
 
-      start_node->m_Costs.m_FromCost = 0.f;
-      start_node->m_Costs.m_ToCost   = Hueristic(start_node, end_node);
-      start_node->m_Costs.m_TotalCost =
-        start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
+      start_node->m_Costs.m_FromCost  = 0.f;
+      start_node->m_Costs.m_ToCost    = Hueristic(start_node, end_node);
+      start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
       std::vector<NodePtr> frontier;
       std::set<NodePtr>    explored;
       NodePtr              solution_node;
 
       frontier.push_back(start_node);
-      std::make_heap(frontier.begin(), frontier.end(), compare());
+      std::make_heap(frontier.begin(), frontier.end(), Compare);
 
       while(!frontier.empty())
       {
 
-        std::pop_heap(frontier.begin(), frontier.end(), compare());
+        std::pop_heap(frontier.begin(), frontier.end(), Compare);
         NodePtr current_node = frontier.back();
         if(GoalTest(current_node, end_node))
         {
@@ -116,18 +110,15 @@ namespace ai
           auto it = std::find(frontier.begin(), frontier.end(), neighbour);
           if(!(it != frontier.end()) && !neighbour->IsObstacle(layer))
           {
-            float gPossibleLowerGoal =
-              current_node->m_Costs.m_FromCost + Hueristic(neighbour, end_node);
+            float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + Hueristic(neighbour, end_node);
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
             {
               neighbour->SetParent(current_node);
-              neighbour->m_Costs.m_FromCost =
-                current_node->m_Costs.m_FromCost + 1;
-              neighbour->m_Costs.m_ToCost = Hueristic(neighbour, end_node);
-              neighbour->m_Costs.m_TotalCost =
-                neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
+              neighbour->m_Costs.m_FromCost  = current_node->m_Costs.m_FromCost + 1;
+              neighbour->m_Costs.m_ToCost    = Hueristic(neighbour, end_node);
+              neighbour->m_Costs.m_TotalCost = neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
               frontier.push_back(neighbour);
-              std::push_heap(frontier.begin(), frontier.end(), compare());
+              std::push_heap(frontier.begin(), frontier.end(), Compare);
             }
           }
         }
@@ -155,10 +146,9 @@ namespace ai
         }
       };
 
-      start_node->m_Costs.m_FromCost = 0.f;
-      start_node->m_Costs.m_ToCost   = 0;
-      start_node->m_Costs.m_TotalCost =
-        start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
+      start_node->m_Costs.m_FromCost  = 0.f;
+      start_node->m_Costs.m_ToCost    = 0;
+      start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
       std::vector<NodePtr> frontier;
       std::set<NodePtr>    explored;
@@ -190,11 +180,9 @@ namespace ai
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
             {
               neighbour->SetParent(current_node);
-              neighbour->m_Costs.m_FromCost =
-                current_node->m_Costs.m_FromCost + 1;
-              neighbour->m_Costs.m_ToCost = 0;
-              neighbour->m_Costs.m_TotalCost =
-                neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
+              neighbour->m_Costs.m_FromCost  = current_node->m_Costs.m_FromCost + 1;
+              neighbour->m_Costs.m_ToCost    = 0;
+              neighbour->m_Costs.m_TotalCost = neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
               frontier.push_back(neighbour);
               std::push_heap(frontier.begin(), frontier.end(), compare());
             }
