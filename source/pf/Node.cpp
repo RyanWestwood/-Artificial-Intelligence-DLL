@@ -1,4 +1,4 @@
-#include "pathfinding/Node.h"
+#include "pf/Node.h"
 
 namespace ai {
 	namespace path {

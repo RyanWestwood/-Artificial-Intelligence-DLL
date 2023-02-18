@@ -1,4 +1,5 @@
-#include "pathfinding/Line.h"
+#include "pf/Line.h"
+
 namespace ai
 {
   namespace path

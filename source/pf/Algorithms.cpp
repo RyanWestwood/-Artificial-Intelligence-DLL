@@ -1,4 +1,4 @@
-#include "pathfinding/Algorithms.h"
+#include "pf/Algorithms.h"
 #include <algorithm>
 #include <iostream>
 #include <math.h>
@@ -64,13 +64,13 @@ namespace ai
         auto current_pos     = current->GetPosition();
         auto destination_pos = destination->GetPosition();
 
-        int xDist = std::max(current_pos.x, destination_pos.x) -
+        float xDist = std::max(current_pos.x, destination_pos.x) -
           std::min(current_pos.x, destination_pos.x);
 
-        int yDist = std::max(current_pos.y, destination_pos.y) -
+        float yDist = std::max(current_pos.y, destination_pos.y) -
           std::min(current_pos.y, destination_pos.y);
 
-        return static_cast<float>((xDist * xDist) + (yDist * yDist));
+        return (xDist * xDist) + (yDist * yDist);
       };
 
       struct compare
