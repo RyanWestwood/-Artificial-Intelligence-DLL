@@ -47,13 +47,18 @@ struct Vector2 {
 		return std::sqrtf(x * x + y * y);
 	}
 
+	float Distance(Vector2 vec)
+	{
+		return Distance(*this, vec);
+	}
+
 	static Vector2 MoveTowards(Vector2 current, Vector2 goal, float move_distance)
 	{	
 		Vector2 vec_to_target = goal - current;
 		float distance_to_target = vec_to_target.Magnitude();
 
 		if(distance_to_target < move_distance || distance_to_target == 0.f) return goal;
-		
+
 		return current + vec_to_target / distance_to_target * move_distance;
 	}
 
