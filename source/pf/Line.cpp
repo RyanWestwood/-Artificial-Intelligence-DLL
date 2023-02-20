@@ -1,4 +1,5 @@
 #include "pf/Line.h"
+#include <cmath>
 
 namespace ai
 {
