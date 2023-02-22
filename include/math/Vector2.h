@@ -127,4 +127,17 @@ struct Vector2
   {
     return MoveTowards(*this, goal, move_distance);
   }
+
+  void MoveForward(float angle, float move_distance)
+  {
+    float directionRadians = angle * M_PI / 180.0;
+
+    Vector2 unit_vector{cos(directionRadians), sin(directionRadians)};
+    float magnitude = unit_vector.Magnitude();
+    unit_vector.x /= magnitude;
+    unit_vector.y /= magnitude;
+
+    x += move_distance * unit_vector.x;
+    y += move_distance * unit_vector.y;
+  }
 };

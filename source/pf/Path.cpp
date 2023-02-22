@@ -7,13 +7,11 @@ namespace ai
 
     Path::Path()
     {
-      m_LookPoints.reserve(20);
-      m_TurnBoundaries.reserve(20);
       m_FinishLineIndex = 0;
       m_SlowDownIndex   = 0;
     }
 
-    void Path::UpdatePath(std::vector<Vector2> waypoints, Vector2 start_pos, float turn_distance, float stopping_distance)
+    Path::Path(const std::vector<Vector2>& waypoints, Vector2 start_pos, float turn_distance, float stopping_distance)
     {
       m_LookPoints = waypoints;
       m_TurnBoundaries.clear();
@@ -40,11 +38,6 @@ namespace ai
           break;
         }
       }
-    }
-
-    std::shared_ptr<Path> CreatePath()
-    {
-      return std::make_shared<Path>();
     }
 
   } // namespace path

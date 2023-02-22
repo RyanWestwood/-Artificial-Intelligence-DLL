@@ -9,14 +9,11 @@ namespace ai
   namespace path
   {
 
-    class Path;
-    typedef std::shared_ptr<Path> PathPtr;
-
     class Path
     {
     public:
       Path();
-      void UpdatePath(std::vector<Vector2> waypoints, Vector2 start_pos, float turn_distance, float stopping_distance);
+      Path(const std::vector<Vector2>& waypoints, Vector2 start_pos, float turn_distance, float stopping_distance);
 
     public:
       std::vector<Vector2> m_LookPoints;
@@ -25,6 +22,5 @@ namespace ai
       int                  m_SlowDownIndex;
     };
 
-    PathPtr CreatePath();
-  } // namespace path
+  } // namespace pat
 } // namespace ai
