@@ -5,7 +5,11 @@
 
 struct Vector2
 {
-  float x, y;
+  union
+  {
+    struct { float x, y; };
+    struct { float w, h; };
+  };  
 
   Vector2()
   {
@@ -105,7 +109,7 @@ struct Vector2
     float dx = vec2.x - vec1.x;
     float dy = vec2.y - vec1.y;
     float angle = std::atan2(dx, dy);
-    return angle * 180.0 / M_PI;
+    return float(angle * 180.0 / M_PI);
   }
 
    float GetAngleBetween(Vector2 vector)
@@ -130,7 +134,7 @@ struct Vector2
 
   void MoveForward(float angle, float move_distance)
   {
-    float directionRadians = angle * M_PI / 180.0;
+    float directionRadians = float(angle * M_PI / 180.0);
 
     Vector2 unit_vector{cos(directionRadians), sin(directionRadians)};
     float magnitude = unit_vector.Magnitude();
