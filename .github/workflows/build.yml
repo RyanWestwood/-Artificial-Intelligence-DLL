@@ -14,6 +14,8 @@ jobs:
           }
     steps:
       - uses: actions/checkout@v2     
+        env:
+          GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=no
         with: 
           debug: true
       - run: git submodule update --init --recursive
