@@ -1,4 +1,5 @@
 #include "pf/Node.h"
+#include <float.h>
 
 namespace ai {
 	namespace path {
