@@ -11,11 +11,12 @@ jobs:
           - {
             name: "Windows/X64/",
             os: self-hosted,
+            args: -G Ninja,
           }
     steps:
       - uses: actions/checkout@v3     
       - run: git submodule update --init --recursive
       - run: |
-          cmake -G Ninja -S . -B ./build
+          cmake ${matrix.config.args} -S . -B ./build
           cd build
           ninja
