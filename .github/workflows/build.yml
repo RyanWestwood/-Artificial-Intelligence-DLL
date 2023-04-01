@@ -10,7 +10,7 @@ jobs:
         config: 
           - {
             name: "Windows/X64/",
-            os: self-hosted,
+            os: windows-lates,
             args: -G Ninja,
           }
     steps:
