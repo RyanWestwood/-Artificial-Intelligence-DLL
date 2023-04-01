@@ -14,6 +14,8 @@ jobs:
           }
     steps:
       - uses: actions/checkout@v3     
+        with: 
+          debug: true
       - run: git submodule update --init --recursive
       - run: |
           cmake -G Ninja -S . -B ./build
