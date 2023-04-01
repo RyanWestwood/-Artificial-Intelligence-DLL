@@ -1,7 +1,7 @@
 #pragma once
 #include "../CompositeNode.h"
 
-class ai::Blackboard;
+class Blackboard;
 class Sequence : public CompositeNode
 {
 public:
