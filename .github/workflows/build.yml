@@ -10,7 +10,7 @@ jobs:
         config: 
           - {
             name: "Windows/X64/",
-            os: windows-latest,
+            os: self-hosted,
           }
     steps:
       - uses: actions/checkout@v3     
