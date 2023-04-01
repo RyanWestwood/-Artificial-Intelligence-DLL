@@ -10,7 +10,7 @@ jobs:
         config: 
           - {
             name: "Windows/X64/",
-            os: windows-lates,
+            os: windows-latest,
             args: -G Ninja,
           }
     steps:
