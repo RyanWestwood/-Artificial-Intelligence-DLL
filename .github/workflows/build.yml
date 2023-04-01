@@ -10,7 +10,7 @@ jobs:
         config: 
           - {
             name: "Windows/X64/Release",
-            os: my-runner,
+            os: self-hosted,
             config: Release,
             args: -G Ninja -A x64,
           }
