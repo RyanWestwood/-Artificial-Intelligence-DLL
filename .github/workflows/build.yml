@@ -9,10 +9,8 @@ jobs:
       matrix:
         config: 
           - {
-            name: "Windows/X64/Release",
+            name: "Windows/X64/",
             os: my-runner,
-            config: Release,
-            args: -G Ninja -A x64,
           }
     steps:
       - uses: actions/checkout@v3     
