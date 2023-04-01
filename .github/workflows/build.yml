@@ -14,9 +14,12 @@ jobs:
             args: -G Ninja,
           }
     steps:
-      - uses: actions/checkout@v3     
-      - run: git submodule update --init --recursive
-      - run: |
+      - name: Checkout code
+        uses: actions/checkout@v3    
+        
+      - name: Build project
+        run: git submodule update --init --recursive
+        run: |
           cmake ${{ matrix.config.args }} -S . -B ./build
           cd build
           ninja
