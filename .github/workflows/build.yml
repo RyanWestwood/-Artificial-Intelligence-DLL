@@ -10,14 +10,10 @@ jobs:
         config: 
           - {
             name: "Windows/X64/",
-            os: self-hosted,
+            os: windows:latest,
           }
     steps:
-      - uses: actions/checkout@v2     
-        env:
-          GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=no
-        with: 
-          debug: true
+      - uses: actions/checkout@v3     
       - run: git submodule update --init --recursive
       - run: |
           cmake -G Ninja -S . -B ./build
