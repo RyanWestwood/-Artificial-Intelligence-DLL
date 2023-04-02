@@ -13,6 +13,11 @@ jobs:
             os: Ubuntu,
             args: -G Ninja,
           }
+          - {
+            name: "Windows/X64/",
+            os: Windows,
+            args: -G Ninja,
+          }
     steps:
       - name: Checkout code
         uses: actions/checkout@v3    
