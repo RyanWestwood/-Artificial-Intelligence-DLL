@@ -9,11 +9,6 @@ jobs:
       matrix:
         config: 
           - {
-            name: "Windows/X64/",
-            os: self-hosted, Windows,
-            args: -G Ninja,
-          }
-          - {
             name: "Linux/X64/",
             os: "self-hosted, Ubuntu",
             args: -G Ninja,
