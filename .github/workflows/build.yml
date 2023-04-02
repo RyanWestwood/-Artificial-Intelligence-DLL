@@ -10,7 +10,7 @@ jobs:
         config: 
           - {
             name: "Linux/X64/",
-            os: "self-hosted, Ubuntu",
+            os: self-hosted,
             args: -G Ninja,
           }
     steps:
