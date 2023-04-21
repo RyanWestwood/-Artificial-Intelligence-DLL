@@ -11,9 +11,9 @@ namespace ai
   namespace path
   {
     auto GoalTest = [](NodePtr current, NodePtr destination) -> bool {
-      bool x = current->GetPosition().x == destination->GetPosition().x;
-      bool y = current->GetPosition().y == destination->GetPosition().y;
-      return x && y;
+      bool same_x = current->GetPosition().x == destination->GetPosition().x;
+      bool same_y = current->GetPosition().y == destination->GetPosition().y;
+      return same_x && same_y;
     };
 
     std::vector<Vector2> SimplifyPath(std::vector<Vector2> path)
@@ -122,19 +122,10 @@ namespace ai
                                     NodePtr              end_node,
                                     Obstacle             layer)
     {
-
       ResetNodeMap(nodes);
 
-      struct compare
-      {
-        bool operator()(const NodePtr& lhs, const NodePtr& rhs) const
-        {
-          if(lhs->m_Costs.m_TotalCost == rhs->m_Costs.m_TotalCost)
-          {
-            return lhs->m_Costs.m_FromCost > rhs->m_Costs.m_FromCost;
-          }
-          return lhs->m_Costs.m_TotalCost > rhs->m_Costs.m_TotalCost;
-        }
+      auto Compare = [](const NodePtr& lhs, const NodePtr& rhs) {
+        return lhs->m_Costs.m_TotalCost > rhs->m_Costs.m_TotalCost;
       };
 
       start_node->m_Costs.m_FromCost  = 0.f;
@@ -143,20 +134,17 @@ namespace ai
 
       std::vector<NodePtr> frontier;
       std::set<NodePtr>    explored;
-      NodePtr              solution_node;
 
       frontier.push_back(start_node);
-      std::make_heap(frontier.begin(), frontier.end(), compare());
+      std::make_heap(frontier.begin(), frontier.end(), Compare);
 
       while(!frontier.empty())
       {
-
-        std::pop_heap(frontier.begin(), frontier.end(), compare());
+        std::pop_heap(frontier.begin(), frontier.end(), Compare);
         NodePtr current_node = frontier.back();
         if(GoalTest(current_node, end_node))
         {
-          solution_node = current_node;
-          break;
+          return GetPath(current_node);
         }
         frontier.pop_back();
         explored.insert(current_node);
@@ -165,7 +153,7 @@ namespace ai
         for(NodePtr& neighbour : current_node->GetNeighbours())
         {
           auto it = std::find(frontier.begin(), frontier.end(), neighbour);
-          if(!(it != frontier.end()) && !neighbour->IsObstacle(layer))
+          if(it == frontier.end() && !neighbour->IsObstacle(layer))
           {
             float gPossibleLowerGoal = current_node->m_Costs.m_FromCost;
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
@@ -175,12 +163,12 @@ namespace ai
               neighbour->m_Costs.m_ToCost    = 0;
               neighbour->m_Costs.m_TotalCost = neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
               frontier.push_back(neighbour);
-              std::push_heap(frontier.begin(), frontier.end(), compare());
+              std::push_heap(frontier.begin(), frontier.end(), Compare);
             }
           }
         }
       }
-      return GetPath(solution_node);
+      return std::vector<Vector2>(); // This will only happen if no solution was available.
     }
 
     std::vector<Vector2> BFS(std::vector<NodePtr> nodes,
