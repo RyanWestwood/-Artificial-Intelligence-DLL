@@ -32,10 +32,10 @@ namespace ai
       return path;
     }
 
-    std::vector<Vector2> BDS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer)
+    std::vector<Vector2> BiDirectional(std::vector<NodePtr> nodes,
+                                       NodePtr              start_node,
+                                       NodePtr              end_node,
+                                       Obstacle             layer)
     {
       ResetNodeMap(nodes);
 

@@ -8,10 +8,10 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> DLS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer)
+    std::vector<Vector2> DepthLimited(std::vector<NodePtr> nodes,
+                                      NodePtr              start_node,
+                                      NodePtr              end_node,
+                                      Obstacle             layer)
     {
       ResetNodeMap(nodes);
 

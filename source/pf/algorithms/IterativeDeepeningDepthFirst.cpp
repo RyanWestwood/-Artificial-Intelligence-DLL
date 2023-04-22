@@ -30,10 +30,10 @@ namespace ai
       return false;
     }
 
-    std::vector<Vector2> IDDFS(std::vector<NodePtr> nodes,
-                               NodePtr              start_node,
-                               NodePtr              end_node,
-                               Obstacle             layer)
+    std::vector<Vector2> IterativeDeepeningDepthFirst(std::vector<NodePtr> nodes,
+                                                      NodePtr              start_node,
+                                                      NodePtr              end_node,
+                                                      Obstacle             layer)
     {
       ResetNodeMap(nodes);
 

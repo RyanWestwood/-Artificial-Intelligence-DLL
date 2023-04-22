@@ -14,10 +14,10 @@ namespace ai
       };
     }
 
-    std::vector<Vector2> GBFS(std::vector<NodePtr> nodes,
-                                    NodePtr              start_node,
-                                    NodePtr              end_node,
-                                    Obstacle             layer)
+    std::vector<Vector2> GreedyBestFirst(std::vector<NodePtr> nodes,
+                                         NodePtr              start_node,
+                                         NodePtr              end_node,
+                                         Obstacle             layer)
     {
       ResetNodeMap(nodes);
 

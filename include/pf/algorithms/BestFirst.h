@@ -5,9 +5,9 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> BFS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer);
+    std::vector<Vector2> BestFirst(std::vector<NodePtr> nodes,
+                                   NodePtr              start_node,
+                                   NodePtr              end_node,
+                                   Obstacle             layer);
   } // namespace path
 } // namespace ai
