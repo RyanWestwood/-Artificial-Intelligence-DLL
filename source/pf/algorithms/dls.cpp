@@ -2,7 +2,7 @@
 #include "pf/algorithms/algo_utils.h"
 #include <algorithm>
 #include <queue>
-#include <set>
+#include <unordered_set>
 
 namespace ai
 {
@@ -13,48 +13,48 @@ namespace ai
                              NodePtr              end_node,
                              Obstacle             layer)
     {
-
       ResetNodeMap(nodes);
 
-      std::deque<NodePtr> frontier; // use back to imitate stack
-      std::set<NodePtr>   explored;
+      std::deque<NodePtr>         frontier;
+      std::unordered_set<NodePtr> frontier_set;
+      std::unordered_set<NodePtr> explored;
+      std::deque<int>             depths;
 
       frontier.push_back(start_node);
+      frontier_set.insert(start_node);
+      depths.push_back(0);
+      int depth_limit = 10;
 
-      int depth_limit   = 3;
-      int current_depth = 0;
       while(!frontier.empty())
       {
+        NodePtr current_node  = frontier.back();
+        int     current_depth = depths.back();
+        frontier.pop_back();
+        frontier_set.erase(current_node);
+        depths.pop_back();
+
+        if(GoalTest(current_node, end_node))
+        {
+          return GetPath(current_node);
+        }
+
         if(current_depth < depth_limit)
         {
-          NodePtr current_node = frontier.back();
-          if(GoalTest(current_node, end_node))
-          {
-            return GetPath(current_node);
-          }
-          frontier.pop_back();
           explored.insert(current_node);
           current_node->SetVisited(true);
 
           for(NodePtr& neighbour : current_node->GetNeighbours())
           {
-            auto it = std::find(frontier.begin(), frontier.end(), neighbour);
-            if(!(it != frontier.end()) && !neighbour->IsObstacle(layer))
+            if(!neighbour->IsObstacle(layer) &&
+               !explored.count(neighbour) &&
+               !frontier_set.count(neighbour))
             {
-              if(!explored.contains(neighbour))
-              {
-                neighbour->SetParent(current_node);
-                frontier.push_back(neighbour);
-              }
+              neighbour->SetParent(current_node);
+              frontier.push_back(neighbour);
+              frontier_set.insert(neighbour);
+              depths.push_back(current_depth + 1);
             }
           }
-          current_depth++;
-        }
-        else
-        {
-          current_depth--;
-          // break;// Error is here quits while as soon as depth_limit is
-          // reached
         }
       }
       return std::vector<Vector2>(); // This will only happen if no solution was available.
