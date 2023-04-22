@@ -26,9 +26,9 @@ namespace ai
       while(!frontier.empty())
       {
         NodePtr current_node = frontier.front();
-        if(GoalTest(current_node, end_node))
+        if(AtGoal(current_node, end_node))
         {
-          return GetPath(current_node);
+          return SolutionPath(current_node);
         }
         frontier.pop_front();
         frontier_set.erase(current_node);

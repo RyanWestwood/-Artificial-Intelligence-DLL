@@ -45,9 +45,9 @@ namespace ai
       {
         std::pop_heap(frontier.begin(), frontier.end(), Compare);
         NodePtr current_node = frontier.back();
-        if(GoalTest(current_node, end_node))
+        if(AtGoal(current_node, end_node))
         {
-          return GetPath(current_node);
+          return SolutionPath(current_node);
         }
         frontier.pop_back();
         explored.insert(current_node);
