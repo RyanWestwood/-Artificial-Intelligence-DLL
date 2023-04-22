@@ -1,5 +1,5 @@
-#include "pf/algorithms/gbfs.h"
-#include "pf/algorithms/algo_utils.h"
+#include "pf/algorithms/GreedyBestFirst.h"
+#include "pf/algorithms/Utils.h"
 #include <algorithm>
 #include <unordered_set>
 

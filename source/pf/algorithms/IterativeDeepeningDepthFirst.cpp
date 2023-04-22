@@ -1,5 +1,5 @@
-#include "pf/algorithms/iddfs.h"
-#include "pf/algorithms/algo_utils.h"
+#include "pf/algorithms/IterativeDeepeningDepthFirst.h"
+#include "pf/algorithms/Utils.h"
 #include <stack>
 #include <unordered_set>
 

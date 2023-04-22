@@ -1,5 +1,5 @@
-#include "pf/algorithms/bfs.h"
-#include "pf/algorithms/algo_utils.h"
+#include "pf/algorithms/BestFirst.h"
+#include "pf/algorithms/Utils.h"
 #include <algorithm>
 #include <queue>
 #include <unordered_set>

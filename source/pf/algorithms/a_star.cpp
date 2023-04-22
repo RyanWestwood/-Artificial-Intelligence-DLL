@@ -1,5 +1,5 @@
-#include "pf/algorithms/a_star.h"
-#include "pf/algorithms/algo_utils.h"
+#include "pf/algorithms/A_Star.h"
+#include "pf/algorithms/Utils.h"
 #include <algorithm>
 #include <set>
 
