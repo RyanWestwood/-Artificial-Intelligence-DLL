@@ -15,12 +15,12 @@ jobs:
           - {
             name: "Linux/X64/",
             os: ubuntu-latest,
-            args: -G Ninja,
+            generator: "Unix Makefiles"
           }
           - {
             name: "Windows/X64/",
             os: windows-latest,
-            args: -G Ninja,
+            generator: "Visual Studio 16 2019"
           }
     steps:
       - name: Checkout code
@@ -28,7 +28,5 @@ jobs:
         
       - name: Build project
         run: |
-          git submodule update --init --recursive
-          cmake ${{ matrix.config.args }} -S . -B ./build
-          cd build
-          ninja
+          cmake -S . -B ./build -G "${{ matrix.config.generator }}"
+          cmake --build ./build
