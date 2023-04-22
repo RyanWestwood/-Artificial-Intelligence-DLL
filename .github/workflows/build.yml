@@ -1,5 +1,9 @@
 name: Build Tests
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   Build:
     name: ${{ matrix.config.name }}
@@ -10,13 +14,13 @@ jobs:
         config: 
           - {
             name: "Linux/X64/",
-            os: Ubuntu,
-            args: -G Ninja,
+            os: ubuntu-latest,
+            generator: "Unix Makefiles"
           }
           - {
             name: "Windows/X64/",
-            os: Windows,
-            args: -G Ninja,
+            os: windows-latest,
+            generator: "Visual Studio 17 2022"
           }
     steps:
       - name: Checkout code
@@ -24,7 +28,5 @@ jobs:
         
       - name: Build project
         run: |
-          git submodule update --init --recursive
-          cmake ${{ matrix.config.args }} -S . -B ./build
-          cd build
-          ninja
+          cmake -S . -B ./build -G "${{ matrix.config.generator }}"
+          cmake --build ./build

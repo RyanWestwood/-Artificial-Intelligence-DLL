@@ -1,34 +1,19 @@
 #pragma once
-#include "../math/Vector2.h"
-#include "Node.h"
+#include "algorithms/A_Star.h"
+#include "algorithms/BiDirectional.h"
+#include "algorithms/BestFirst.h"
+#include "algorithms/DepthFirst.h"
+#include "algorithms/DepthLimited.h"
+#include "algorithms/GreedyBestFirst.h"
+#include "algorithms/IterativeDeepeningDepthFirst.h"
 
-namespace ai
+enum class SearchAlgorithm : uint8_t
 {
-  namespace path
-  {
-    std::vector<Vector2> A_Star(std::vector<NodePtr> nodes,
-                                NodePtr              start_node,
-                                NodePtr              end_node,
-                                Obstacle             layer);
-
-    std::vector<Vector2> BFS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer);
-
-    std::vector<Vector2> Greedy_BFS(std::vector<NodePtr> nodes,
-                                    NodePtr              start_node,
-                                    NodePtr              end_node,
-                                    Obstacle             layer);
-
-    std::vector<Vector2> DFS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer);
-
-    std::vector<Vector2> DLS(std::vector<NodePtr> nodes,
-                             NodePtr              start_node,
-                             NodePtr              end_node,
-                             Obstacle             layer);
-  } // namespace path
-} // namespace ai
+    A_Star = 0,
+    BestFirst,
+    BiDirectional,
+    DepthFirst,
+    DepthLimited,
+    GreedyBestFirst,
+    IterativeDeepeningDepthFirst
+};
