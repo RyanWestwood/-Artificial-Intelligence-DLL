@@ -5,7 +5,7 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> Greedy_BFS(std::vector<NodePtr> nodes,
+    std::vector<Vector2> GBFS(std::vector<NodePtr> nodes,
                                     NodePtr              start_node,
                                     NodePtr              end_node,
                                     Obstacle             layer);
