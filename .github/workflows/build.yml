@@ -10,12 +10,12 @@ jobs:
         config: 
           - {
             name: "Linux/X64/",
-            os: Ubuntu,
+            os: ubuntu-latest,
             args: -G Ninja,
           }
           - {
             name: "Windows/X64/",
-            os: Windows,
+            os: windows-latest,
             args: -G Ninja,
           }
     steps:
