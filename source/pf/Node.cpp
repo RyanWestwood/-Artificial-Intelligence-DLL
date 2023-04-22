@@ -49,9 +49,9 @@ namespace ai {
 		}
 
 		void ResetNodeMap(std::vector<NodePtr> nodes) {
-			for (int x = 0; x < 48; x++)
+			for (int x = 0; x < 48; x++) // Map width in tiles.
 			{
-				for (int y = 0; y < 27; y++)
+				for (int y = 0; y < 27; y++) // Map height in tiles.
 				{
 					nodes[y * 48 + x]->SetCosts({ FLT_MAX, FLT_MAX, FLT_MAX });
 					nodes[y * 48 + x]->SetVisited(false);
