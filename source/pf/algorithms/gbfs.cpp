@@ -1,7 +1,7 @@
 #include "pf/algorithms/gbfs.h"
 #include "pf/algorithms/algo_utils.h"
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 
 namespace ai
 {
@@ -25,8 +25,8 @@ namespace ai
       start_node->m_Costs.m_ToCost    = 0;
       start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
-      std::vector<NodePtr> frontier;
-      std::set<NodePtr>    explored;
+      std::vector<NodePtr>        frontier;
+      std::unordered_set<NodePtr> explored;
 
       frontier.push_back(start_node);
       std::make_heap(frontier.begin(), frontier.end(), Compare);
