@@ -2,7 +2,7 @@
 #include "pf/algorithms/algo_utils.h"
 #include <algorithm>
 #include <queue>
-#include <set>
+#include <unordered_set>
 
 namespace ai
 {
@@ -16,10 +16,12 @@ namespace ai
 
       ResetNodeMap(nodes);
 
-      std::deque<NodePtr> frontier;
-      std::set<NodePtr>   explored;
+      std::deque<NodePtr>         frontier;
+      std::unordered_set<NodePtr> frontier_set;
+      std::unordered_set<NodePtr> explored;
 
       frontier.push_back(start_node);
+      frontier_set.insert(start_node);
 
       while(!frontier.empty())
       {
@@ -29,19 +31,19 @@ namespace ai
           return GetPath(current_node);
         }
         frontier.pop_back();
+        frontier_set.erase(current_node);
         explored.insert(current_node);
         current_node->SetVisited(true);
 
         for(NodePtr& neighbour : current_node->GetNeighbours())
         {
-          auto it = std::find(frontier.begin(), frontier.end(), neighbour);
-          if(!(it != frontier.end()) && !neighbour->IsObstacle(layer))
+          if(!neighbour->IsObstacle(layer) &&
+             !explored.count(neighbour) &&
+             !frontier_set.count(neighbour))
           {
-            if(!explored.contains(neighbour))
-            {
-              neighbour->SetParent(current_node);
-              frontier.push_back(neighbour);
-            }
+            neighbour->SetParent(current_node);
+            frontier.push_back(neighbour);
+            frontier_set.insert(neighbour);
           }
         }
       }
