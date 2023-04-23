@@ -1,4 +1,4 @@
-name: Build (Windows)
+name: Build (Linux)
 on:
   pull_request:
   push:
@@ -13,8 +13,8 @@ jobs:
       matrix:
         config: 
           - {
-            name: "Windows/X64/",
-            os: windows-latest,
+            name: "Linux/X64/",
+            os: ubuntu-latest,
           }
     steps:
       - name: Checkout code
