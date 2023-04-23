@@ -25,3 +25,8 @@ install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
 
 install(DIRECTORY include/ DESTINATION include/ai)
 install(FILES README.md DESTINATION share/licenses/ai_lib)
+
+option(TESTS "Run tests" OFF)
+if (TESTS MATCHES ON)
+  add_subdirectory(tests)
+endif()
