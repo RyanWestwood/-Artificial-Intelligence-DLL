@@ -28,11 +28,8 @@ install(FILES README.md DESTINATION share/licenses/ai_lib)
 
 option(TESTS "Run tests" ON)
 if (TESTS MATCHES ON)
-  # Enable building shared libraries
   option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-  # Enable creating a shared library for GTest
   option(GTEST_CREATE_SHARED_LIBRARY "Create a shared library for GTest" ON)
   add_subdirectory(external/googletest)
-  include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
   add_subdirectory(tests)
 endif()
