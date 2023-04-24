@@ -53,7 +53,7 @@ git push origin feature/your-feature-name
 6. Create a pull request on GitHub:
 
 * Go to the main repository's "Pull Requests" tab and click "New Pull Request".
-* Choose the base repository (your_username/AI-Library) and the base branch (main).
+* Choose the base repository (RyanWestwood/AI-Library) and the base branch (main).
 * Choose your forked repository (your_username/AI-Library) and your feature branch.
 * Click "Create Pull Request" and fill in the template with the relevant information.
 
