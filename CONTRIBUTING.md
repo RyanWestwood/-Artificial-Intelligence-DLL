@@ -13,10 +13,11 @@ Please read and follow our [Code of Conduct]() to ensure a positive and welcomin
 ``` sh
 git clone https://github.com/your_username/AI-Library.git
 cd AI-Library
+git submodule update --init --recursive
 ```
 3. Add the original repository as a remote, so you can fetch the latest changes:
 ``` sh
-git remote add upstream https://github.com/your_username/AI-Library.git
+git remote add upstream https://github.com/RyanWestwood/AI-Library.git
 ```
 
 ## Creating Issues
