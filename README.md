@@ -88,7 +88,14 @@ cmake --install . --prefix ../lib
 ***
 
 # Running Tests  
-placeholder
+1. Configure CMake with option on:
+``` sh
+cmake -S ../ -B . -DTESTS=ON
+```
+2. Run tests:
+``` sh 
+cd ../build/tests && ctest -C Release
+```
 
 ***
 

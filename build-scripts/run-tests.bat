@@ -1,4 +1,3 @@
-cd ../build/tests
-ctest -C Release
-echo Project built successfully
+cd ../build/tests && ctest -C Release
+echo Tests Complete...
 pause
