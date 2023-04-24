@@ -92,7 +92,11 @@ cmake --install . --prefix ../lib
 ``` sh
 cmake -S ../ -B . -DTESTS=ON
 ```
-2. Run tests:
+2. Build the library with tests:
+``` sh 
+cmake --build .
+```
+3. Run tests:
 ``` sh 
 cd ../build/tests && ctest -C Release
 ```
