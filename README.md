@@ -42,11 +42,12 @@ AI Library is a powerful and versatile C++ project designed to provide efficient
 ## Installation  
 1. Clone the repository:
 ``` sh
-git clone https://github.com/your_username/AI-Library.git
+git clone https://github.com/RyanWestwood/AI-Library.git
 ```  
 2. Create a build directory:
 ``` sh
 cd AI-Library
+git submodule update --init --recursive
 mkdir build
 cd build
 ```
@@ -88,7 +89,18 @@ cmake --install . --prefix ../lib
 ***
 
 # Running Tests  
-placeholder
+1. Configure CMake with option on:
+``` sh
+cmake -S ../ -B . -DTESTS=ON
+```
+2. Build the library with tests:
+``` sh 
+cmake --build .
+```
+3. Run tests:
+``` sh 
+cd ../build/tests && ctest -C Release
+```
 
 ***
 

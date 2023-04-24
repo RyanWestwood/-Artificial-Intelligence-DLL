@@ -25,3 +25,11 @@ install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
 
 install(DIRECTORY include/ DESTINATION include/ai)
 install(FILES README.md DESTINATION share/licenses/ai_lib)
+
+option(TESTS "Run tests" ON)
+if (TESTS MATCHES ON)
+  option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+  option(GTEST_CREATE_SHARED_LIBRARY "Create a shared library for GTest" ON)
+  add_subdirectory(external/googletest)
+  add_subdirectory(tests)
+endif()
