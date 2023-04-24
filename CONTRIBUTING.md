@@ -4,7 +4,7 @@ First of all, thank you for considering contributing to the AI Library project! 
 This document outlines the process for contributing to the project, including forking, creating issues, and submitting pull requests.
 
 ## Code of Conduct
-Please read and follow our [Code of Conduct]() to ensure a positive and welcoming environment for all contributors.
+Please read and follow our [Code of Conduct](CODEOFCONDUCT.md) to ensure a positive and welcoming environment for all contributors.
 
 ## Getting Started
 1. Fork the repository: Click the "Fork" button on the top right corner of the project's GitHub page. This will create a copy of the repository under your own GitHub account.
