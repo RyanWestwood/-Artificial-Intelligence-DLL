@@ -117,6 +117,6 @@ namespace ai
     };
 
     std::vector<NodePtr> CreateNodeMap(int, int);
-    void                 ResetNodeMap(std::vector<NodePtr> nodes);
+    void                 ResetNodeMap(std::vector<NodePtr>& nodes);
   } // namespace path
 } // namespace ai
