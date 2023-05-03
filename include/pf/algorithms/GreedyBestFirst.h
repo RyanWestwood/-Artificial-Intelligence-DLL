@@ -5,9 +5,9 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> GreedyBestFirst(std::vector<NodePtr>& nodes,
+    std::vector<Vector2> GreedyBestFirst(std::vector<NodePtr>& node_map,
                                          NodePtr               start_node,
-                                         NodePtr               end_node,
+                                         NodePtr               goal_node,
                                          Obstacle              layer);
   } // namespace path
 } // namespace ai
