@@ -14,12 +14,12 @@ namespace ai
       };
     }
 
-    std::vector<Vector2> GreedyBestFirst(std::vector<NodePtr> nodes,
-                                         NodePtr              start_node,
-                                         NodePtr              end_node,
-                                         Obstacle             layer)
+    std::vector<Vector2> GreedyBestFirst(std::vector<NodePtr>& node_map,
+                                         NodePtr               start_node,
+                                         NodePtr               goal_node,
+                                         Obstacle              layer)
     {
-      ResetNodeMap(nodes);
+      ResetNodeMap(node_map);
 
       start_node->m_Costs.m_FromCost  = 0.f;
       start_node->m_Costs.m_ToCost    = 0;
@@ -35,7 +35,7 @@ namespace ai
       {
         std::pop_heap(frontier.begin(), frontier.end(), Compare);
         NodePtr current_node = frontier.back();
-        if(AtGoal(current_node, end_node))
+        if(AtGoal(current_node, goal_node))
         {
           return SolutionPath(current_node);
         }
