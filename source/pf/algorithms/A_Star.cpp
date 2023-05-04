@@ -24,12 +24,12 @@ namespace ai
       };
     } // namespace
 
-    std::vector<Vector2> A_Star(std::vector<NodePtr> nodes,
-                                NodePtr              start_node,
-                                NodePtr              end_node,
-                                Obstacle             layer)
+    std::vector<Vector2> A_Star(std::vector<NodePtr>& node_map,
+                                NodePtr               start_node,
+                                NodePtr               end_node,
+                                Obstacle              layer)
     {
-      ResetNodeMap(nodes);
+      ResetNodeMap(node_map);
 
       start_node->m_Costs.m_FromCost  = 0.f;
       start_node->m_Costs.m_ToCost    = Heuristic(start_node, end_node);

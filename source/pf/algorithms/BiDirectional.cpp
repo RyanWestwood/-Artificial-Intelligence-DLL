@@ -32,12 +32,12 @@ namespace ai
       return path;
     }
 
-    std::vector<Vector2> BiDirectional(std::vector<NodePtr> nodes,
-                                       NodePtr              start_node,
-                                       NodePtr              end_node,
-                                       Obstacle             layer)
+    std::vector<Vector2> BiDirectional(std::vector<NodePtr>& node_map,
+                                       NodePtr               start_node,
+                                       NodePtr               goal_node,
+                                       Obstacle              layer)
     {
-      ResetNodeMap(nodes);
+      ResetNodeMap(node_map);
 
       std::queue<NodePtr> start_frontier;
       std::queue<NodePtr> end_frontier;
@@ -48,8 +48,8 @@ namespace ai
       start_frontier.push(start_node);
       start_explored.insert(start_node);
 
-      end_frontier.push(end_node);
-      end_explored.insert(end_node);
+      end_frontier.push(goal_node);
+      end_explored.insert(goal_node);
 
       while(!start_frontier.empty() && !end_frontier.empty())
       {

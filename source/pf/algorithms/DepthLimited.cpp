@@ -8,12 +8,12 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> DepthLimited(std::vector<NodePtr> nodes,
-                                      NodePtr              start_node,
-                                      NodePtr              end_node,
-                                      Obstacle             layer)
+    std::vector<Vector2> DepthLimited(std::vector<NodePtr>& node_map,
+                                      NodePtr               start_node,
+                                      NodePtr               goal_node,
+                                      Obstacle              layer)
     {
-      ResetNodeMap(nodes);
+      ResetNodeMap(node_map);
 
       std::deque<NodePtr>         frontier;
       std::unordered_set<NodePtr> frontier_set;
@@ -33,7 +33,7 @@ namespace ai
         frontier_set.erase(current_node);
         depths.pop_back();
 
-        if(AtGoal(current_node, end_node))
+        if(AtGoal(current_node, goal_node))
         {
           return SolutionPath(current_node);
         }

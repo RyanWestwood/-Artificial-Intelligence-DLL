@@ -30,20 +30,20 @@ namespace ai
       return false;
     }
 
-    std::vector<Vector2> IterativeDeepeningDepthFirst(std::vector<NodePtr> nodes,
-                                                      NodePtr              start_node,
-                                                      NodePtr              end_node,
-                                                      Obstacle             layer)
+    std::vector<Vector2> IterativeDeepeningDepthFirst(std::vector<NodePtr>& node_map,
+                                                      NodePtr               start_node,
+                                                      NodePtr               goal_node,
+                                                      Obstacle              layer)
     {
-      ResetNodeMap(nodes);
+      ResetNodeMap(node_map);
 
       for(int limit = 1;; ++limit)
       {
         std::unordered_set<NodePtr> visited;
 
-        if(IDDFS_Visit(start_node, end_node, 0, limit, layer, visited))
+        if(IDDFS_Visit(start_node, goal_node, 0, limit, layer, visited))
         {
-          return SolutionPath(end_node);
+          return SolutionPath(goal_node);
         }
       }
 

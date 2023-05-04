@@ -50,17 +50,14 @@ namespace ai
       return map;
     }
 
-    void ResetNodeMap(std::vector<NodePtr> nodes)
+    void ResetNodeMap(std::vector<NodePtr>& nodes)
     {
-      for(int x = 0; x < 48; x++) // Map width in tiles.
+      for(auto& node : nodes)
       {
-        for(int y = 0; y < 27; y++) // Map height in tiles.
-        {
-          nodes[y * 48 + x]->SetCosts({FLT_MAX, FLT_MAX, FLT_MAX});
-          nodes[y * 48 + x]->SetVisited(false);
-          nodes[y * 48 + x]->SetParent(nullptr);
-          nodes[y * 48 + x]->SetBiDirectionalParent(nullptr);
-        }
+        node->SetCosts({FLT_MAX, FLT_MAX, FLT_MAX});
+        node->SetVisited(false);
+        node->SetParent(nullptr);
+        node->SetBiDirectionalParent(nullptr);
       }
     }
   } // namespace path
