@@ -55,8 +55,7 @@ namespace ai
 
         for(NodePtr& neighbour : current_node->GetNeighbours())
         {
-          auto it = std::find(frontier.begin(), frontier.end(), neighbour);
-          if(it == frontier.end() && !neighbour->IsObstacle(layer))
+          if(!neighbour->IsObstacle(layer))
           {
             float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + Heuristic(neighbour, end_node);
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
