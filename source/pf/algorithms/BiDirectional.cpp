@@ -21,12 +21,12 @@ namespace ai
       }
 
       std::reverse(path.begin(), path.end());
-      current_node = middle_node->GetBiDirectionalParent();
+      // current_node = middle_node->GetBiDirectionalParent();
 
       while(current_node != nullptr)
       {
         path.push_back(current_node->GetPosition());
-        current_node = current_node->GetBiDirectionalParent();
+        // current_node = current_node->GetBiDirectionalParent();
       }
 
       return path;
@@ -56,17 +56,19 @@ namespace ai
         NodePtr current_start = start_frontier.front();
         start_frontier.pop();
 
-        for(NodePtr& neighbor : current_start->GetNeighbours())
+        Node** neighbours = current_start->GetNeighbours();
+        for(int i = 0; i < 4; ++i)
         {
-          if(!neighbor->IsObstacle(layer) && start_explored.count(neighbor) == 0)
+          Node* neighbour = neighbours[i];
+          if(!neighbour->IsObstacle(layer) && start_explored.count(neighbour) == 0)
           {
-            start_explored.insert(neighbor);
-            neighbor->SetParent(current_start);
-            start_frontier.push(neighbor);
+            start_explored.insert(neighbour);
+            neighbour->SetParent(current_start);
+            start_frontier.push(neighbour);
 
-            if(end_explored.count(neighbor) > 0)
+            if(end_explored.count(neighbour) > 0)
             {
-              return GetPathBiDirectional(neighbor);
+              return GetPathBiDirectional(neighbour);
             }
           }
         }
@@ -74,17 +76,19 @@ namespace ai
         NodePtr current_end = end_frontier.front();
         end_frontier.pop();
 
-        for(NodePtr& neighbor : current_end->GetNeighbours())
+        neighbours = current_end->GetNeighbours();
+        for(int i = 0; i < 4; ++i)
         {
-          if(!neighbor->IsObstacle(layer) && end_explored.count(neighbor) == 0)
+          Node* neighbour = neighbours[i];
+          if(!neighbour->IsObstacle(layer) && end_explored.count(neighbour) == 0)
           {
-            end_explored.insert(neighbor);
-            neighbor->SetBiDirectionalParent(current_end);
-            end_frontier.push(neighbor);
+            end_explored.insert(neighbour);
+            //neighbor->SetBiDirectionalParent(current_end);
+            end_frontier.push(neighbour);
 
-            if(start_explored.count(neighbor) > 0)
+            if(start_explored.count(neighbour) > 0)
             {
-              return GetPathBiDirectional(neighbor);
+              return GetPathBiDirectional(neighbour);
             }
           }
         }

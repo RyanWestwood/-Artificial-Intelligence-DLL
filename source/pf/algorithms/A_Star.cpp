@@ -53,8 +53,10 @@ namespace ai
         explored.insert(current_node);
         current_node->SetVisited(true);
 
-        for(NodePtr& neighbour : current_node->GetNeighbours())
+        Node** neighbours = current_node->GetNeighbours();
+        for(int i = 0; i < 4; ++i)
         {
+          Node* neighbour = neighbours[i];
           if(!neighbour->IsObstacle(layer))
           {
             float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + Heuristic(neighbour, end_node);

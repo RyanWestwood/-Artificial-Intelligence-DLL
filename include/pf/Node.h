@@ -7,9 +7,8 @@ namespace ai
 {
   namespace path
   {
-
     class Node;
-    typedef std::shared_ptr<Node> NodePtr;
+    typedef Node* NodePtr;
 
     struct Costs
     {
@@ -60,12 +59,7 @@ namespace ai
         return m_Parent;
       }
 
-      NodePtr GetBiDirectionalParent() const
-      {
-        return m_BiDirectionalParent;
-      }
-
-      std::vector<NodePtr> GetNeighbours() const
+      Node** GetNeighbours()
       {
         return m_Neighbours;
       }
@@ -95,28 +89,33 @@ namespace ai
         m_Parent = parent;
       }
 
-      void SetBiDirectionalParent(NodePtr parent)
+      void AddNeighbour(int index, Node* neighbour)
       {
-        m_BiDirectionalParent = parent;
-      }
-
-      void AddNeighbours(NodePtr neighbours)
-      {
-        m_Neighbours.push_back(neighbours);
+        m_Neighbours[index] = neighbour;
       }
 
     public:
       Costs m_Costs; // TODO @RyanWestwood: Change this to private and adjust the algorithms!
     private:
-      Vector2              m_Position;
-      bool                 m_Visited;
-      Obstacle             m_ObstacleLayer;
-      NodePtr              m_Parent;
-      NodePtr              m_BiDirectionalParent;
-      std::vector<NodePtr> m_Neighbours;
+      Vector2  m_Position;
+      bool     m_Visited;
+      Obstacle m_ObstacleLayer;
+      Node*    m_Parent;
+      Node*    m_Neighbours[4];
     };
 
-    std::vector<NodePtr> CreateNodeMap(int, int);
+    class TestNode
+    {
+    public:
+      Costs     cost;
+      Vector2   pos;
+      uint8_t   visited;
+      uint8_t   obstacle;
+      TestNode* parent;
+      TestNode* neighbours[4];
+    };
+
+    std::vector<Node*> CreateNodeMap(int, int);
     void                 ResetNodeMap(std::vector<NodePtr>& nodes);
   } // namespace path
 } // namespace ai

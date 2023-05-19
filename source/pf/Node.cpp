@@ -18,13 +18,13 @@ namespace ai
 
     std::vector<NodePtr> CreateNodeMap(int map_width, int map_height)
     {
-      std::vector<NodePtr> map{};
+      std::vector<Node*> map{};
       map.reserve(map_width * map_height);
       for(int y = 0; y < map_height; y++)
       {
         for(int x = 0; x < map_width; x++)
         {
-          auto node = std::make_shared<Node>();
+          auto node = new Node();
           node->SetObstacle(Obstacle::None);
           node->SetVisited(false);
           node->SetPosition({(float)x, (float)y});
@@ -38,13 +38,13 @@ namespace ai
         for(int x = 0; x < map_width; x++)
         {
           if(y > 0)
-            map[y * map_width + x]->AddNeighbours(map[(y - 1) * map_width + (x)]);
+            map[y * map_width + x]->AddNeighbour(0, map[(y - 1) * map_width + x]);
           if(y < map_height - 1)
-            map[y * map_width + x]->AddNeighbours(map[(y + 1) * map_width + (x)]);
+            map[y * map_width + x]->AddNeighbour(2, map[(y + 1) * map_width + x]);
           if(x > 0)
-            map[y * map_width + x]->AddNeighbours(map[(y)*map_width + (x - 1)]);
+            map[y * map_width + x]->AddNeighbour(3, map[y * map_width + (x - 1)]);
           if(x < map_width - 1)
-            map[y * map_width + x]->AddNeighbours(map[(y)*map_width + (x + 1)]);
+            map[y * map_width + x]->AddNeighbour(1, map[y * map_width + (x + 1)]);
         }
       }
       return map;
@@ -57,7 +57,7 @@ namespace ai
         node->SetCosts({FLT_MAX, FLT_MAX, FLT_MAX});
         node->SetVisited(false);
         node->SetParent(nullptr);
-        node->SetBiDirectionalParent(nullptr);
+        //node->SetBiDirectionalParent(nullptr);
       }
     }
   } // namespace path

@@ -15,14 +15,18 @@ namespace ai
       if(AtGoal(current_node, end_node)) return true;
       if(depth >= limit) return false;
 
-      for(NodePtr& neighbor : current_node->GetNeighbours())
+      Node** neighbours = current_node->GetNeighbours();
+      for(int i = 0; i < 4; ++i)
       {
-        if(!neighbor->IsObstacle(layer) && visited.count(neighbor) == 0)
+        Node* neighbour = neighbours[i];
         {
-          if(IDDFS_Visit(neighbor, end_node, depth + 1, limit, layer, visited))
+          if(!neighbour->IsObstacle(layer) && visited.count(neighbour) == 0)
           {
-            neighbor->SetParent(current_node);
-            return true;
+            if(IDDFS_Visit(neighbour, end_node, depth + 1, limit, layer, visited))
+            {
+              neighbour->SetParent(current_node);
+              return true;
+            }
           }
         }
       }
