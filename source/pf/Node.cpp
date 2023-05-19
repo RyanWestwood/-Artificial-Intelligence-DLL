@@ -12,11 +12,11 @@ namespace ai
       m_Visited       = false;
       m_Costs         = {0, 0, 0};
       m_Position      = {0, 0};
-      m_Neighbours;
-      m_Parent;
+      m_Parent        = nullptr;
+      memset(m_Neighbours, 0, 4);
     }
 
-    std::vector<NodePtr> CreateNodeMap(int map_width, int map_height)
+    std::vector<Node*> CreateNodeMap(int map_width, int map_height)
     {
       std::vector<Node*> map{};
       map.reserve(map_width * map_height);
@@ -50,14 +50,14 @@ namespace ai
       return map;
     }
 
-    void ResetNodeMap(std::vector<NodePtr>& nodes)
+    void ResetNodeMap(std::vector<Node*>& nodes)
     {
       for(auto& node : nodes)
       {
         node->SetCosts({FLT_MAX, FLT_MAX, FLT_MAX});
         node->SetVisited(false);
         node->SetParent(nullptr);
-        //node->SetBiDirectionalParent(nullptr);
+        // node->SetBiDirectionalParent(nullptr);
       }
     }
   } // namespace path

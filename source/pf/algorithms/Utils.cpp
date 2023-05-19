@@ -4,7 +4,7 @@ namespace ai
 {
   namespace path
   {
-    bool AtGoal(NodePtr current, NodePtr destination)
+    bool AtGoal(Node* current, Node* destination)
     {
       bool same_x = current->GetPosition().x == destination->GetPosition().x;
       bool same_y = current->GetPosition().y == destination->GetPosition().y;
@@ -31,7 +31,7 @@ namespace ai
       return way_points;
     }
 
-    std::vector<Vector2> SolutionPath(NodePtr solution_node)
+    std::vector<Vector2> SolutionPath(Node* solution_node)
     {
       if(!solution_node)
         return {};

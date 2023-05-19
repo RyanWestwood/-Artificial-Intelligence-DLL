@@ -8,24 +8,24 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> DepthFirst(std::vector<NodePtr>& node_map,
-                                    NodePtr               start_node,
-                                    NodePtr               goal_node,
+    std::vector<Vector2> DepthFirst(std::vector<Node*>& node_map,
+                                    Node*               start_node,
+                                    Node*               goal_node,
                                     Obstacle              layer)
     {
 
       ResetNodeMap(node_map);
 
-      std::deque<NodePtr>         frontier;
-      std::unordered_set<NodePtr> frontier_set;
-      std::unordered_set<NodePtr> explored;
+      std::deque<Node*>         frontier;
+      std::unordered_set<Node*> frontier_set;
+      std::unordered_set<Node*> explored;
 
       frontier.push_back(start_node);
       frontier_set.insert(start_node);
 
       while(!frontier.empty())
       {
-        NodePtr current_node = frontier.back();
+        Node* current_node = frontier.back();
         if(AtGoal(current_node, goal_node))
         {
           return SolutionPath(current_node);

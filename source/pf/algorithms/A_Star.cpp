@@ -9,7 +9,7 @@ namespace ai
   {
     namespace
     {
-      auto Heuristic = [](NodePtr current, NodePtr destination) {
+      auto Heuristic = [](Node* current, Node* destination) {
         auto current_pos     = current->GetPosition();
         auto destination_pos = destination->GetPosition();
 
@@ -19,14 +19,14 @@ namespace ai
         return (xDist * xDist) + (yDist * yDist);
       };
 
-      auto Compare = [](const NodePtr& lhs, const NodePtr& rhs) {
+      auto Compare = [](const Node* lhs, const Node* rhs) {
         return lhs->m_Costs.m_TotalCost > rhs->m_Costs.m_TotalCost;
       };
     } // namespace
 
-    std::vector<Vector2> A_Star(std::vector<NodePtr>& node_map,
-                                NodePtr               start_node,
-                                NodePtr               end_node,
+    std::vector<Vector2> A_Star(std::vector<Node*>& node_map,
+                                Node*               start_node,
+                                Node*               end_node,
                                 Obstacle              layer)
     {
       ResetNodeMap(node_map);
@@ -35,8 +35,8 @@ namespace ai
       start_node->m_Costs.m_ToCost    = Heuristic(start_node, end_node);
       start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
-      std::vector<NodePtr> frontier;
-      std::set<NodePtr>    explored;
+      std::vector<Node*> frontier;
+      std::set<Node*>    explored;
 
       frontier.push_back(start_node);
       std::make_heap(frontier.begin(), frontier.end(), Compare);
@@ -44,7 +44,7 @@ namespace ai
       while(!frontier.empty())
       {
         std::pop_heap(frontier.begin(), frontier.end(), Compare);
-        NodePtr current_node = frontier.back();
+        Node* current_node = frontier.back();
         if(AtGoal(current_node, end_node))
         {
           return SolutionPath(current_node);

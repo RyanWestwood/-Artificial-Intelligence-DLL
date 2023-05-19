@@ -8,7 +8,6 @@ namespace ai
   namespace path
   {
     class Node;
-    typedef Node* NodePtr;
 
     struct Costs
     {
@@ -54,7 +53,7 @@ namespace ai
         return m_Costs;
       }
 
-      NodePtr GetParent() const
+      Node* GetParent() const
       {
         return m_Parent;
       }
@@ -84,7 +83,7 @@ namespace ai
         m_Costs = costs;
       }
 
-      void SetParent(NodePtr parent)
+      void SetParent(Node* parent)
       {
         m_Parent = parent;
       }
@@ -104,18 +103,7 @@ namespace ai
       Node*    m_Neighbours[4];
     };
 
-    class TestNode
-    {
-    public:
-      Costs     cost;
-      Vector2   pos;
-      uint8_t   visited;
-      uint8_t   obstacle;
-      TestNode* parent;
-      TestNode* neighbours[4];
-    };
-
     std::vector<Node*> CreateNodeMap(int, int);
-    void                 ResetNodeMap(std::vector<NodePtr>& nodes);
+    void               ResetNodeMap(std::vector<Node*>& nodes);
   } // namespace path
 } // namespace ai

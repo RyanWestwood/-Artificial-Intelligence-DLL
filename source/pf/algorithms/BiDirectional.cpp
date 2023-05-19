@@ -9,11 +9,11 @@ namespace ai
   namespace path
   {
 
-    std::vector<Vector2> GetPathBiDirectional(NodePtr middle_node)
+    std::vector<Vector2> GetPathBiDirectional(Node* middle_node)
     {
       std::vector<Vector2> path;
 
-      NodePtr current_node = middle_node;
+      Node* current_node = middle_node;
       while(current_node != nullptr)
       {
         path.push_back(current_node->GetPosition());
@@ -32,18 +32,18 @@ namespace ai
       return path;
     }
 
-    std::vector<Vector2> BiDirectional(std::vector<NodePtr>& node_map,
-                                       NodePtr               start_node,
-                                       NodePtr               goal_node,
+    std::vector<Vector2> BiDirectional(std::vector<Node*>& node_map,
+                                       Node*               start_node,
+                                       Node*               goal_node,
                                        Obstacle              layer)
     {
       ResetNodeMap(node_map);
 
-      std::queue<NodePtr> start_frontier;
-      std::queue<NodePtr> end_frontier;
+      std::queue<Node*> start_frontier;
+      std::queue<Node*> end_frontier;
 
-      std::unordered_set<NodePtr> start_explored;
-      std::unordered_set<NodePtr> end_explored;
+      std::unordered_set<Node*> start_explored;
+      std::unordered_set<Node*> end_explored;
 
       start_frontier.push(start_node);
       start_explored.insert(start_node);
@@ -53,7 +53,7 @@ namespace ai
 
       while(!start_frontier.empty() && !end_frontier.empty())
       {
-        NodePtr current_start = start_frontier.front();
+        Node* current_start = start_frontier.front();
         start_frontier.pop();
 
         Node** neighbours = current_start->GetNeighbours();
@@ -73,7 +73,7 @@ namespace ai
           }
         }
 
-        NodePtr current_end = end_frontier.front();
+        Node* current_end = end_frontier.front();
         end_frontier.pop();
 
         neighbours = current_end->GetNeighbours();

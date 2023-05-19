@@ -10,9 +10,9 @@ namespace ai
      *
      * This is just a test to see how doxygen works.
      */
-    std::vector<Vector2> A_Star(std::vector<NodePtr>& node_map,
-                                NodePtr               start_node,
-                                NodePtr               end_node,
+    std::vector<Vector2> A_Star(std::vector<Node*>& node_map,
+                                Node*               start_node,
+                                Node*               end_node,
                                 Obstacle              layer);
   } // namespace path
 } // namespace ai
