@@ -1,5 +1,5 @@
 #include "pf/Node.h"
-#include <float.h>
+#include <cstring>
 
 namespace ai
 {
