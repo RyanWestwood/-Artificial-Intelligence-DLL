@@ -24,9 +24,12 @@ def create_build_dir():
     os.makedirs(build_dir, exist_ok=True)
 
 def install_lib(library, build_type, install_dir, configure="", build="", install=""):
-    print(f"\nInstalling {library}...")
+    print(f"Installing {library}...")
     library_dir = os.path.join(working_dir, "external", library)
     build_dir = os.path.join(library_dir, "build")
+    if os.path.isdir(build_dir):
+        return
+
     os.makedirs(build_dir, exist_ok=True)
     os.chdir(build_dir)
 

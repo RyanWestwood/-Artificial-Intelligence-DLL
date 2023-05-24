@@ -1,7 +1,7 @@
 #include "pf/algorithms/A_Star.h"
 #include "pf/algorithms/Utils.h"
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 
 namespace ai
 {
@@ -27,7 +27,7 @@ namespace ai
     std::vector<Vector2> A_Star(std::vector<Node*>& node_map,
                                 Node*               start_node,
                                 Node*               end_node,
-                                Obstacle              layer)
+                                Obstacle            layer)
     {
       ResetNodeMap(node_map);
 
@@ -36,7 +36,7 @@ namespace ai
       start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
       std::vector<Node*> frontier;
-      std::set<Node*>    explored;
+      std::unordered_set<Node*> explored;
 
       frontier.push_back(start_node);
       std::make_heap(frontier.begin(), frontier.end(), Compare);
@@ -65,6 +65,63 @@ namespace ai
               neighbour->SetParent(current_node);
               neighbour->m_Costs.m_FromCost  = current_node->m_Costs.m_FromCost + 1;
               neighbour->m_Costs.m_ToCost    = Heuristic(neighbour, end_node);
+              neighbour->m_Costs.m_TotalCost = neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
+              frontier.push_back(neighbour);
+              std::push_heap(frontier.begin(), frontier.end(), Compare);
+            }
+          }
+        }
+      }
+      return std::vector<Vector2>(); // This will only happen if no solution was available.
+    }
+
+    void PrecomputeHeuristics(std::vector<Node*>& node_map, Node* end_node)
+    {
+      for(Node* node : node_map)
+      {
+        node->m_Costs.m_ToCost = Heuristic(node, end_node);
+      }
+    }
+
+    std::vector<Vector2> A_StarStatic(std::vector<Node*>& node_map,
+                                      Node*               start_node,
+                                      Node*               end_node,
+                                      Obstacle            layer)
+    {
+      ResetNodeMap(node_map);
+
+      start_node->m_Costs.m_FromCost  = 0.f;
+      start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
+
+      std::vector<Node*> frontier;
+      std::unordered_set<Node*> explored;
+
+      frontier.push_back(start_node);
+      std::make_heap(frontier.begin(), frontier.end(), Compare);
+
+      while(!frontier.empty())
+      {
+        std::pop_heap(frontier.begin(), frontier.end(), Compare);
+        Node* current_node = frontier.back();
+        if(AtGoal(current_node, end_node))
+        {
+          return SolutionPath(current_node);
+        }
+        frontier.pop_back();
+        explored.insert(current_node);
+        current_node->SetVisited(true);
+
+        Node** neighbours = current_node->GetNeighbours();
+        for(int i = 0; i < 4; ++i)
+        {
+          Node* neighbour = neighbours[i];
+          if(!neighbour->IsObstacle(layer))
+          {
+            float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
+            if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
+            {
+              neighbour->SetParent(current_node);
+              neighbour->m_Costs.m_FromCost  = current_node->m_Costs.m_FromCost + 1;
               neighbour->m_Costs.m_TotalCost = neighbour->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
               frontier.push_back(neighbour);
               std::push_heap(frontier.begin(), frontier.end(), Compare);
