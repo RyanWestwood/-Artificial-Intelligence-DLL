@@ -16,6 +16,20 @@ namespace ai
       memset(m_Neighbours, 0, 4);
     }
 
+    void AddNeighbour(std::vector<Node*>& map, int map_index, int neighbour_index, int side, bool statement)
+    {
+      if(statement)
+      {
+        map[map_index]->AddNeighbour(neighbour_index, map[map_index + side]);
+      }
+      else
+      {
+        Node* wall_node = new Node();
+        wall_node->SetObstacle(All);
+        map[map_index]->AddNeighbour(neighbour_index, wall_node);
+      }
+    }
+
     std::vector<Node*> CreateNodeMap(int map_width, int map_height)
     {
       std::vector<Node*> map{};
@@ -37,49 +51,11 @@ namespace ai
       {
         for(int x = 0; x < map_width; x++)
         {
-          if(y > 0)
-          {
-            map[y * map_width + x]->AddNeighbour(0, map[(y - 1) * map_width + x]);
-          }
-          else
-          {
-            Node* wall_node = new Node();
-            wall_node->SetObstacle(All);
-            map[y * map_width + x]->AddNeighbour(0, wall_node);
-          }
-
-          if(y < map_height - 1)
-          {
-            map[y * map_width + x]->AddNeighbour(2, map[(y + 1) * map_width + x]);
-          }
-          else
-          {
-            Node* wall_node = new Node();
-            wall_node->SetObstacle(All);
-            map[y * map_width + x]->AddNeighbour(2, wall_node);
-          }
-
-          if(x > 0)
-          {
-            map[y * map_width + x]->AddNeighbour(3, map[y * map_width + (x - 1)]);
-          }
-          else
-          {
-            Node* wall_node = new Node();
-            wall_node->SetObstacle(All);
-            map[y * map_width + x]->AddNeighbour(3, wall_node);
-          }
-
-          if(x < map_width - 1)
-          {
-            map[y * map_width + x]->AddNeighbour(1, map[y * map_width + (x + 1)]);
-          }
-          else
-          {
-            Node* wall_node = new Node();
-            wall_node->SetObstacle(All);
-            map[y * map_width + x]->AddNeighbour(1, wall_node);
-          }
+          int current_index = y * map_width + x;
+          AddNeighbour(map, current_index, 0, -map_width, (y > 0));             // Above
+          AddNeighbour(map, current_index, 2, map_width, (y < map_height - 1)); // Below
+          AddNeighbour(map, current_index, 3, -1, (x > 0));                     // Left
+          AddNeighbour(map, current_index, 1, 1, (x < map_width - 1));          // Right
         }
       }
       return map;
