@@ -1,3 +1,0 @@
-cd ../build/tests && ctest -C Release
-echo Tests Complete...
-pause
