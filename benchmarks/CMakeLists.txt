@@ -1,17 +1,16 @@
 cmake_minimum_required(VERSION 3.8)
-project(MyTest LANGUAGES C CXX)
+project(AI_Benchmarks LANGUAGES C CXX)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 20)
 
-set(benchmark_DIR "C:/Users/Ryan/Documents/Git/AI-Library/external/googlebenchmark/build")
+set(PROJECT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../)
+set(benchmark_DIR "${PROJECT_DIRECTORY}/external/googlebenchmark/build")
 find_package(benchmark REQUIRED)
 
-# Include the Google Benchmark headers
-# Link against the Google Benchmark library
-set(GOOGLEBENCH_ROOT "C:/Users/Ryan/Documents/Git/AI-Library/library_binaries")
+set(GOOGLEBENCH_ROOT "${PROJECT_DIRECTORY}/library_binaries")
 include_directories(${GOOGLEBENCH_ROOT}/include)
 link_directories(${GOOGLEBENCH_ROOT}/lib)
 
-add_executable(MyTest main.cpp)
-target_link_libraries(MyTest benchmark::benchmark)
-target_link_libraries(MyTest "C:/Users/Ryan/Documents/Git/AI-Library/library_binaries/lib/AIL.lib")
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} benchmark::benchmark)
+target_link_libraries(${PROJECT_NAME} "${PROJECT_DIRECTORY}/library_binaries/lib/AIL.lib")
