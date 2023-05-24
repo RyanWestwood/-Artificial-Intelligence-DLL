@@ -11,7 +11,7 @@ namespace ai
       return same_x && same_y;
     };
 
-    std::vector<Vector2> SimplifyPath(std::vector<Vector2> path)
+    std::vector<Vector2> SimplifyPath(std::vector<Vector2>& path)
     {
       std::vector<Vector2> way_points{};
       Vector2              old_direction{0, 0};
@@ -34,7 +34,9 @@ namespace ai
     std::vector<Vector2> SolutionPath(Node* solution_node)
     {
       if(!solution_node)
+      {
         return {};
+      }
 
       std::vector<Vector2> path;
       while(solution_node->GetParent() != nullptr)
@@ -43,6 +45,7 @@ namespace ai
         solution_node = solution_node->GetParent();
       }
       path.push_back(solution_node->GetPosition());
+
       std::vector<Vector2> simplified_path = SimplifyPath(path);
       std::reverse(std::begin(simplified_path), std::end(simplified_path));
       return simplified_path;

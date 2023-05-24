@@ -38,13 +38,48 @@ namespace ai
         for(int x = 0; x < map_width; x++)
         {
           if(y > 0)
+          {
             map[y * map_width + x]->AddNeighbour(0, map[(y - 1) * map_width + x]);
+          }
+          else
+          {
+            Node* wall_node = new Node();
+            wall_node->SetObstacle(All);
+            map[y * map_width + x]->AddNeighbour(0, wall_node);
+          }
+
           if(y < map_height - 1)
+          {
             map[y * map_width + x]->AddNeighbour(2, map[(y + 1) * map_width + x]);
+          }
+          else
+          {
+            Node* wall_node = new Node();
+            wall_node->SetObstacle(All);
+            map[y * map_width + x]->AddNeighbour(2, wall_node);
+          }
+
           if(x > 0)
+          {
             map[y * map_width + x]->AddNeighbour(3, map[y * map_width + (x - 1)]);
+          }
+          else
+          {
+            Node* wall_node = new Node();
+            wall_node->SetObstacle(All);
+            map[y * map_width + x]->AddNeighbour(3, wall_node);
+          }
+
           if(x < map_width - 1)
+          {
             map[y * map_width + x]->AddNeighbour(1, map[y * map_width + (x + 1)]);
+          }
+          else
+          {
+            Node* wall_node = new Node();
+            wall_node->SetObstacle(All);
+            map[y * map_width + x]->AddNeighbour(1, wall_node);
+          }
         }
       }
       return map;
