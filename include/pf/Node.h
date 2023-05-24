@@ -32,7 +32,6 @@ namespace ai
     {
     public:
       Node();
-
       bool IsObstacle(Obstacle layer) const
       {
         return layer & m_ObstacleLayer;
@@ -104,6 +103,7 @@ namespace ai
     };
 
     std::vector<Node*> CreateNodeMap(int, int);
+    void               DeleteNodeMap(std::vector<Node*>& map);
     void               ResetNodeMap(std::vector<Node*>& nodes);
   } // namespace path
 } // namespace ai

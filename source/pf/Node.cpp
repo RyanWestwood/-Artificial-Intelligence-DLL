@@ -85,6 +85,14 @@ namespace ai
       return map;
     }
 
+    void DeleteNodeMap(std::vector<Node*>& map)
+    {
+      for(Node* node : map)
+      {
+        delete node;
+      }
+    }
+
     void ResetNodeMap(std::vector<Node*>& nodes)
     {
       for(auto& node : nodes)
