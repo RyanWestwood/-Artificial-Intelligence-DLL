@@ -15,6 +15,9 @@ def copy_file(source_path, destination_path):
     except Exception as e:
         print(f"File copy failed: {str(e)}")
 
+def move_library_files(build_type):
+    copy_file(f'{library_binaries}/bin/AIL.dll', f'{working_dir}/benchmarks/build/{build_type}/AIL.dll')
+
 def create_build_dir():
     print(f"Creating home for build and binaries!")
     os.makedirs(library_binaries, exist_ok=True)
@@ -46,8 +49,7 @@ def build_benchmarks(build_type):
     build_dir = os.path.join(library_dir, "build")
     os.makedirs(build_dir, exist_ok=True)
     os.chdir(build_dir)    
-    copy_file(f'{library_binaries}/bin/AIL.dll', f'{build_dir}/{build_type}/AIL.dll')
-
+    
     try:
         cmake_command = f'cmake "{generator}" -S "{library_dir}" -B "{build_dir}"'
         subprocess.run(cmake_command, shell=True, check=True)
@@ -93,9 +95,9 @@ def main():
     if args.benchmark == "ON":
         install_lib("googlebenchmark", args.build_type, args.install_dir, configure="-DBENCHMARK_DOWNLOAD_DEPENDENCIES=on")
         build_benchmarks(args.build_type)
-
     
     install_project(args.build_type, args.install_dir)
+    move_library_files(args.build_type)
 
     input("Press Enter to exit...")
 
