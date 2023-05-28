@@ -1,7 +1,6 @@
 #include "pf/algorithms/A_Star.h"
 #include "pf/algorithms/Utils.h"
 #include <algorithm>
-#include <unordered_set>
 
 namespace ai
 {
@@ -36,8 +35,6 @@ namespace ai
       start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
       std::vector<Node*> frontier;
-      std::unordered_set<Node*> explored;
-
       frontier.push_back(start_node);
       std::make_heap(frontier.begin(), frontier.end(), Compare);
 
@@ -50,14 +47,14 @@ namespace ai
           return SolutionPath(current_node);
         }
         frontier.pop_back();
-        explored.insert(current_node);
         current_node->SetVisited(true);
 
         Node** neighbours = current_node->GetNeighbours();
         for(int i = 0; i < 4; ++i)
         {
           Node* neighbour = neighbours[i];
-          if(!neighbour->IsObstacle(layer))
+          if(!neighbour->IsObstacle(layer) &&
+             !neighbour->IsVisited())
           {
             float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + Heuristic(neighbour, end_node);
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
@@ -94,7 +91,6 @@ namespace ai
       start_node->m_Costs.m_TotalCost = start_node->m_Costs.m_FromCost + start_node->m_Costs.m_ToCost;
 
       std::vector<Node*> frontier;
-      std::unordered_set<Node*> explored;
 
       frontier.push_back(start_node);
       std::make_heap(frontier.begin(), frontier.end(), Compare);
@@ -108,14 +104,14 @@ namespace ai
           return SolutionPath(current_node);
         }
         frontier.pop_back();
-        explored.insert(current_node);
         current_node->SetVisited(true);
 
         Node** neighbours = current_node->GetNeighbours();
         for(int i = 0; i < 4; ++i)
         {
           Node* neighbour = neighbours[i];
-          if(!neighbour->IsObstacle(layer))
+          if(!neighbour->IsObstacle(layer) &&
+             !neighbour->IsVisited())
           {
             float gPossibleLowerGoal = current_node->m_Costs.m_FromCost + neighbour->m_Costs.m_ToCost;
             if(gPossibleLowerGoal < neighbour->m_Costs.m_FromCost)
