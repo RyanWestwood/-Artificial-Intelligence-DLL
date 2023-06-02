@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.8)
 project(AIL VERSION 1.0.0)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT AIL)
-set (CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DLOGGING")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -DLOGGING")
@@ -26,11 +26,3 @@ install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
 
 install(DIRECTORY include/ DESTINATION include/ai)
 install(FILES README.md DESTINATION share/licenses/ai_lib)
-
-option(TESTS "Run tests" OFF)
-if (TESTS MATCHES ON)
-  option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-  option(GTEST_CREATE_SHARED_LIBRARY "Create a shared library for GTest" ON)
-  add_subdirectory(external/googletest)
-  add_subdirectory(tests)
-endif()

@@ -8,16 +8,16 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> DepthLimited(std::vector<NodePtr>& node_map,
-                                      NodePtr               start_node,
-                                      NodePtr               goal_node,
+    std::vector<Vector2> DepthLimited(std::vector<Node*>& node_map,
+                                      Node*               start_node,
+                                      Node*               goal_node,
                                       Obstacle              layer)
     {
       ResetNodeMap(node_map);
 
-      std::deque<NodePtr>         frontier;
-      std::unordered_set<NodePtr> frontier_set;
-      std::unordered_set<NodePtr> explored;
+      std::deque<Node*>         frontier;
+      std::unordered_set<Node*> frontier_set;
+      std::unordered_set<Node*> explored;
       std::deque<int>             depths;
 
       frontier.push_back(start_node);
@@ -27,7 +27,7 @@ namespace ai
 
       while(!frontier.empty())
       {
-        NodePtr current_node  = frontier.back();
+        Node* current_node  = frontier.back();
         int     current_depth = depths.back();
         frontier.pop_back();
         frontier_set.erase(current_node);
@@ -43,8 +43,10 @@ namespace ai
           explored.insert(current_node);
           current_node->SetVisited(true);
 
-          for(NodePtr& neighbour : current_node->GetNeighbours())
+          Node** neighbours = current_node->GetNeighbours();
+          for(int i = 0; i < 4; ++i)
           {
+            Node* neighbour = neighbours[i];
             if(!neighbour->IsObstacle(layer) &&
                !explored.count(neighbour) &&
                !frontier_set.count(neighbour))

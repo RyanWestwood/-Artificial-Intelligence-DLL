@@ -1,2 +1,3 @@
 library_binaries/**
 build/**
+benchmarks/build/**

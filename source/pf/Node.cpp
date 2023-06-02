@@ -1,4 +1,5 @@
 #include "pf/Node.h"
+#include <cstring>
 #include <float.h>
 
 namespace ai
@@ -12,19 +13,33 @@ namespace ai
       m_Visited       = false;
       m_Costs         = {0, 0, 0};
       m_Position      = {0, 0};
-      m_Neighbours;
-      m_Parent;
+      m_Parent        = nullptr;
+      memset(m_Neighbours, 0, 4);
     }
 
-    std::vector<NodePtr> CreateNodeMap(int map_width, int map_height)
+    void AddNeighbour(std::vector<Node*>& map, int map_index, int neighbour_index, int side, bool statement)
     {
-      std::vector<NodePtr> map{};
+      if(statement)
+      {
+        map[map_index]->AddNeighbour(neighbour_index, map[map_index + side]);
+      }
+      else
+      {
+        Node* wall_node = new Node();
+        wall_node->SetObstacle(All);
+        map[map_index]->AddNeighbour(neighbour_index, wall_node);
+      }
+    }
+
+    std::vector<Node*> CreateNodeMap(int map_width, int map_height)
+    {
+      std::vector<Node*> map{};
       map.reserve(map_width * map_height);
       for(int y = 0; y < map_height; y++)
       {
         for(int x = 0; x < map_width; x++)
         {
-          auto node = std::make_shared<Node>();
+          auto node = new Node();
           node->SetObstacle(Obstacle::None);
           node->SetVisited(false);
           node->SetPosition({(float)x, (float)y});
@@ -37,27 +52,32 @@ namespace ai
       {
         for(int x = 0; x < map_width; x++)
         {
-          if(y > 0)
-            map[y * map_width + x]->AddNeighbours(map[(y - 1) * map_width + (x)]);
-          if(y < map_height - 1)
-            map[y * map_width + x]->AddNeighbours(map[(y + 1) * map_width + (x)]);
-          if(x > 0)
-            map[y * map_width + x]->AddNeighbours(map[(y)*map_width + (x - 1)]);
-          if(x < map_width - 1)
-            map[y * map_width + x]->AddNeighbours(map[(y)*map_width + (x + 1)]);
+          int current_index = y * map_width + x;
+          AddNeighbour(map, current_index, 0, -map_width, (y > 0));             // Above
+          AddNeighbour(map, current_index, 2, map_width, (y < map_height - 1)); // Below
+          AddNeighbour(map, current_index, 3, -1, (x > 0));                     // Left
+          AddNeighbour(map, current_index, 1, 1, (x < map_width - 1));          // Right
         }
       }
       return map;
     }
 
-    void ResetNodeMap(std::vector<NodePtr>& nodes)
+    void DeleteNodeMap(std::vector<Node*>& map)
+    {
+      for(Node* node : map)
+      {
+        delete node;
+      }
+    }
+
+    void ResetNodeMap(std::vector<Node*>& nodes)
     {
       for(auto& node : nodes)
       {
         node->SetCosts({FLT_MAX, FLT_MAX, FLT_MAX});
         node->SetVisited(false);
         node->SetParent(nullptr);
-        node->SetBiDirectionalParent(nullptr);
+        // node->SetBiDirectionalParent(nullptr);
       }
     }
   } // namespace path

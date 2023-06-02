@@ -5,9 +5,9 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> DepthLimited(std::vector<NodePtr>& node_map,
-                                      NodePtr               start_node,
-                                      NodePtr               goal_node,
+    std::vector<Vector2> DepthLimited(std::vector<Node*>& node_map,
+                                      Node*               start_node,
+                                      Node*               goal_node,
                                       Obstacle              layer);
   } // namespace path
 } // namespace ai
