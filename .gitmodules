@@ -7,3 +7,6 @@
 [submodule "external/sdlimage_2.6.2"]
 	path = external/sdlimage_2.6.2
 	url = https://github.com/libsdl-org/SDL_image.git
+[submodule "external/googlebenchmark"]
+	path = external/googlebenchmark
+	url = https://github.com/google/benchmark.git

@@ -8,24 +8,24 @@ namespace ai
 {
   namespace path
   {
-    std::vector<Vector2> BestFirst(std::vector<NodePtr>& node_map,
-                                   NodePtr               start_node,
-                                   NodePtr               goal_node,
+    std::vector<Vector2> BestFirst(std::vector<Node*>& node_map,
+                                   Node*               start_node,
+                                   Node*               goal_node,
                                    Obstacle              layer)
     {
 
       ResetNodeMap(node_map);
 
-      std::deque<NodePtr>         frontier;
-      std::unordered_set<NodePtr> frontier_set;
-      std::unordered_set<NodePtr> explored;
+      std::deque<Node*>         frontier;
+      std::unordered_set<Node*> frontier_set;
+      std::unordered_set<Node*> explored;
 
       frontier.push_back(start_node);
       frontier_set.insert(start_node);
 
       while(!frontier.empty())
       {
-        NodePtr current_node = frontier.front();
+        Node* current_node = frontier.front();
         if(AtGoal(current_node, goal_node))
         {
           return SolutionPath(current_node);
@@ -35,8 +35,10 @@ namespace ai
         explored.insert(current_node);
         current_node->SetVisited(true);
 
-        for(NodePtr& neighbour : current_node->GetNeighbours())
+        Node** neighbours = current_node->GetNeighbours();
+        for(int i = 0; i < 4; ++i)
         {
+          Node* neighbour = neighbours[i];
           if(!neighbour->IsObstacle(layer) &&
              !explored.count(neighbour) &&
              !frontier_set.count(neighbour))

@@ -7,9 +7,7 @@ namespace ai
 {
   namespace path
   {
-
     class Node;
-    typedef std::shared_ptr<Node> NodePtr;
 
     struct Costs
     {
@@ -34,7 +32,6 @@ namespace ai
     {
     public:
       Node();
-
       bool IsObstacle(Obstacle layer) const
       {
         return layer & m_ObstacleLayer;
@@ -55,17 +52,12 @@ namespace ai
         return m_Costs;
       }
 
-      NodePtr GetParent() const
+      Node* GetParent() const
       {
         return m_Parent;
       }
 
-      NodePtr GetBiDirectionalParent() const
-      {
-        return m_BiDirectionalParent;
-      }
-
-      std::vector<NodePtr> GetNeighbours() const
+      Node** GetNeighbours()
       {
         return m_Neighbours;
       }
@@ -90,33 +82,28 @@ namespace ai
         m_Costs = costs;
       }
 
-      void SetParent(NodePtr parent)
+      void SetParent(Node* parent)
       {
         m_Parent = parent;
       }
 
-      void SetBiDirectionalParent(NodePtr parent)
+      void AddNeighbour(int index, Node* neighbour)
       {
-        m_BiDirectionalParent = parent;
-      }
-
-      void AddNeighbours(NodePtr neighbours)
-      {
-        m_Neighbours.push_back(neighbours);
+        m_Neighbours[index] = neighbour;
       }
 
     public:
       Costs m_Costs; // TODO @RyanWestwood: Change this to private and adjust the algorithms!
     private:
-      Vector2              m_Position;
-      bool                 m_Visited;
-      Obstacle             m_ObstacleLayer;
-      NodePtr              m_Parent;
-      NodePtr              m_BiDirectionalParent;
-      std::vector<NodePtr> m_Neighbours;
+      Vector2  m_Position;
+      bool     m_Visited;
+      Obstacle m_ObstacleLayer;
+      Node*    m_Parent;
+      Node*    m_Neighbours[4];
     };
 
-    std::vector<NodePtr> CreateNodeMap(int, int);
-    void                 ResetNodeMap(std::vector<NodePtr>& nodes);
+    std::vector<Node*> CreateNodeMap(int, int);
+    void               DeleteNodeMap(std::vector<Node*>& map);
+    void               ResetNodeMap(std::vector<Node*>& nodes);
   } // namespace path
 } // namespace ai

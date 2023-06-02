@@ -10,9 +10,21 @@ namespace ai
      *
      * This is just a test to see how doxygen works.
      */
-    std::vector<Vector2> A_Star(std::vector<NodePtr>& node_map,
-                                NodePtr               start_node,
-                                NodePtr               end_node,
-                                Obstacle              layer);
+    std::vector<Vector2> A_Star(std::vector<Node*>& node_map,
+                                Node*               start_node,
+                                Node*               end_node,
+                                Obstacle            layer);
+
+    /**
+     * @brief A simple A_StarStatic implementation
+     *
+     * This is just a test to see how doxygen works.
+     */
+    std::vector<Vector2> A_StarStatic(std::vector<Node*>& node_map,
+                                      Node*               start_node,
+                                      Node*               end_node,
+                                      Obstacle            layer);
+
+    void                 PrecomputeHeuristics(std::vector<Node*>& node_map, Node* end_node);
   } // namespace path
 } // namespace ai
