@@ -27,14 +27,14 @@ def install_lib(library, build_type, install_dir, configure="", build="", instal
     print(f"Installing {library}...")
     library_dir = os.path.join(working_dir, "external", library)
     build_dir = os.path.join(library_dir, "build")
-    if os.path.isdir(build_dir):
-        return
+    #if os.path.isdir(build_dir):
+        #return
 
     os.makedirs(build_dir, exist_ok=True)
     os.chdir(build_dir)
 
     try:
-        cmake_command = f'cmake "{generator}" -S "{library_dir}" -B "{build_dir}" {configure}'
+        cmake_command = f'cmake "{generator}" -S "{library_dir}" -B "{build_dir}" {configure} -DCMAKE_PREFIX_PATH={install_dir}'
         subprocess.run(cmake_command, shell=True, check=True)
         build_command = f'cmake --build . --config {build_type} --parallel'
         subprocess.run(build_command, shell=True, check=True)
@@ -86,11 +86,16 @@ def install_project(build_type, install_dir):
 def main():
     parser = argparse.ArgumentParser(description="Build and install libraries and project.")
     parser.add_argument("--build-type", choices=["Release", "Debug"], default="Release", help="Build type (Release or Debug)")
+    parser.add_argument("--visualization", choices=["ON", "OFF"], default="OFF", help="Build Visualization (ON or OFF)")
     parser.add_argument("--test", choices=["ON", "OFF"], default="OFF", help="Build Tests (ON or OFF)")
-    parser.add_argument("--benchmark", choices=["ON", "OFF"], default="OFF", help="Build Tests (ON or OFF)")
+    parser.add_argument("--benchmark", choices=["ON", "OFF"], default="OFF", help="Build Benchmarks (ON or OFF)")
     parser.add_argument("--install-dir", default=library_binaries, help="Installation directory path")
 
     args = parser.parse_args()
+
+    if args.visualization == "ON":
+        install_lib("sdl_2.28,1", args.build_type, args.install_dir)
+        install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
 
     if args.test == "ON":
         install_lib("googletest", args.build_type, args.install_dir)
