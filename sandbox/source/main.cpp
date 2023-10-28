@@ -62,9 +62,10 @@ int main(int argc, char* args[])
       }
     }
 
-    for(int i = 0; i < 66; i++)
+    for(int i = 0; i < 5; i++)
     {
-      map.at(23 * 80 + 7 + i)->SetObstacle(ai::path::All);
+      int a = map.size();
+      map.at(23 * 80 + 7)->SetObstacle(ai::path::All);
     }
     std::vector<Vector2> path = CreatePath(map, start, goal, SearchAlgorithm::A_Star, ai::path::All);
 

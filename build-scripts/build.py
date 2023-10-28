@@ -13,10 +13,10 @@ def copy_file(source_path, destination_path):
         shutil.copy(source_path, destination_path)
         print(f"File copied successfully from '{source_path}' to '{destination_path}'")
     except Exception as e:
-        print(f"File copy failed: {str(e)}")
+        print(f"File copy failed: {str(e)} \n\tsrc= '{source_path}' \n\tdst= '{destination_path}' ")
 
-def move_library_files(build_type):
-    copy_file(f'{library_binaries}/bin/AIL.dll', f'{working_dir}/benchmarks/build/{build_type}/AIL.dll')
+def move_library_files(build_type, source, destination):
+    copy_file(f'{library_binaries}/bin/{source}', f'{working_dir}/{destination}/{build_type}/{source}')
 
 def create_build_dir():
     print(f"Creating home for build and binaries!")
@@ -85,17 +85,20 @@ def install_project(build_type, install_dir):
 
 def main():
     parser = argparse.ArgumentParser(description="Build and install libraries and project.")
-    parser.add_argument("--build-type", choices=["Release", "Debug"], default="Release", help="Build type (Release or Debug)")
-    parser.add_argument("--visualization", choices=["ON", "OFF"], default="OFF", help="Build Visualization (ON or OFF)")
-    parser.add_argument("--test", choices=["ON", "OFF"], default="OFF", help="Build Tests (ON or OFF)")
-    parser.add_argument("--benchmark", choices=["ON", "OFF"], default="OFF", help="Build Benchmarks (ON or OFF)")
-    parser.add_argument("--install-dir", default=library_binaries, help="Installation directory path")
+    parser.add_argument("--build-type",     choices=["Release", "Debug"], default="Release", help="Build type (Release or Debug)")
+    parser.add_argument("--visualization",  choices=["ON", "OFF"], default="ON", help="Build Visualization (ON or OFF)")
+    parser.add_argument("--test",           choices=["ON", "OFF"], default="OFF", help="Build Tests (ON or OFF)")
+    parser.add_argument("--benchmark",      choices=["ON", "OFF"], default="OFF", help="Build Benchmarks (ON or OFF)")
+    parser.add_argument("--install-dir",    default=library_binaries, help="Installation directory path")
 
     args = parser.parse_args()
 
     if args.visualization == "ON":
-        install_lib("sdl_2.28,1", args.build_type, args.install_dir)
+        install_lib("sdl_2.28.1", args.build_type, args.install_dir)
         install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
+        move_library_files(args.build_type, "AIL.dll", "sandbox/build")
+        move_library_files(args.build_type, "SDL2.dll", "sandbox/build")
+        move_library_files(args.build_type, "SDL2_image.dll", "sandbox/build")
 
     if args.test == "ON":
         install_lib("googletest", args.build_type, args.install_dir)
@@ -103,10 +106,9 @@ def main():
     if args.benchmark == "ON":
         install_lib("googlebenchmark", args.build_type, args.install_dir, configure="-DBENCHMARK_DOWNLOAD_DEPENDENCIES=on")
         build_benchmarks(args.build_type)
+        move_library_files(args.build_type, "AIL.dll", "benchmarks/build")
     
     install_project(args.build_type, args.install_dir)
-    move_library_files(args.build_type)
-
     input("Press Enter to exit...")
 
 if __name__ == "__main__":
