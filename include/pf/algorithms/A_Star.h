@@ -8,7 +8,7 @@ namespace ai
     /**
      * @brief A simple A_Star implementation
      *
-     * This is just a test to see how doxygen works.
+     * This can be called on dynamically changing maps with changing goals. 
      */
     std::vector<Vector2> A_Star(std::vector<Node*>& node_map,
                                 Node*               start_node,
@@ -18,7 +18,8 @@ namespace ai
     /**
      * @brief A simple A_StarStatic implementation
      *
-     * This is just a test to see how doxygen works.
+     * This can be called on a static map, same goal. Change nothing. 
+     * Can have a huge performance boost based on expensive heuristics.
      */
     std::vector<Vector2> A_StarStatic(std::vector<Node*>& node_map,
                                       Node*               start_node,

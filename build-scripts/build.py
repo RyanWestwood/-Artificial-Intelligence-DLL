@@ -10,6 +10,11 @@ generator = "-G Visual Studio 17 2022"
 
 def copy_file(source_path, destination_path):
     try:
+        # Check if the destination folder exists, and create it if it doesn't
+        destination_folder = os.path.dirname(destination_path)
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
+
         shutil.copy(source_path, destination_path)
         print(f"File copied successfully from '{source_path}' to '{destination_path}'")
     except Exception as e:
@@ -96,6 +101,8 @@ def main():
     if args.visualization == "ON":
         install_lib("sdl_2.28.1", args.build_type, args.install_dir)
         install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
+        # Seems like a redundant step? Link the the Library Binaries folder instead.
+        # also this only accounts for release. Debug is too slow to use anyway?
         move_library_files(args.build_type, "AIL.dll", "sandbox/build")
         move_library_files(args.build_type, "SDL2.dll", "sandbox/build")
         move_library_files(args.build_type, "SDL2_image.dll", "sandbox/build")
