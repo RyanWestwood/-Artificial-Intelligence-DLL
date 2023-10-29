@@ -91,21 +91,18 @@ def install_project(build_type, install_dir):
 def main():
     parser = argparse.ArgumentParser(description="Build and install libraries and project.")
     parser.add_argument("--build-type",     choices=["Release", "Debug"], default="Release", help="Build type (Release or Debug)")
-    parser.add_argument("--visualization",  choices=["ON", "OFF"], default="ON", help="Build Visualization (ON or OFF)")
+    parser.add_argument("--visualization",  choices=["ON", "OFF"], default="OFF", help="Build Visualization (ON or OFF)")
     parser.add_argument("--test",           choices=["ON", "OFF"], default="OFF", help="Build Tests (ON or OFF)")
     parser.add_argument("--benchmark",      choices=["ON", "OFF"], default="OFF", help="Build Benchmarks (ON or OFF)")
     parser.add_argument("--install-dir",    default=library_binaries, help="Installation directory path")
 
     args = parser.parse_args()
 
+    install_project(args.build_type, args.install_dir)
+
     if args.visualization == "ON":
         install_lib("sdl_2.28.1", args.build_type, args.install_dir)
         install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
-        # Seems like a redundant step? Link the the Library Binaries folder instead.
-        # also this only accounts for release. Debug is too slow to use anyway?
-        move_library_files(args.build_type, "AIL.dll", "sandbox/build")
-        move_library_files(args.build_type, "SDL2.dll", "sandbox/build")
-        move_library_files(args.build_type, "SDL2_image.dll", "sandbox/build")
 
     if args.test == "ON":
         install_lib("googletest", args.build_type, args.install_dir)
@@ -113,9 +110,7 @@ def main():
     if args.benchmark == "ON":
         install_lib("googlebenchmark", args.build_type, args.install_dir, configure="-DBENCHMARK_DOWNLOAD_DEPENDENCIES=on")
         build_benchmarks(args.build_type)
-        move_library_files(args.build_type, "AIL.dll", "benchmarks/build")
     
-    install_project(args.build_type, args.install_dir)
     input("Press Enter to exit...")
 
 if __name__ == "__main__":
