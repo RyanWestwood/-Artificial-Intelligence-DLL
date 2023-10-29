@@ -56,7 +56,7 @@ int main(int argc, char* args[])
     // Create obstacles.
     for(int i = 10; i < 30; i++)
     {
-      node_map.at(23 * MAP_WIDTH + i)->SetObstacle(ai::path::All);
+      //node_map.at(23 * MAP_WIDTH + i)->SetObstacle(ai::path::All);
     }
 
     // Create path.
