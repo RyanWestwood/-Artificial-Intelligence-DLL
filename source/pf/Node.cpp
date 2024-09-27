@@ -39,7 +39,7 @@ namespace ai
       {
         for(int x = 0; x < map_width; x++)
         {
-          auto node = new Node();
+          Node* node = new Node();
           node->SetObstacle(Obstacle::None);
           node->SetVisited(false);
           node->SetPosition({(float)x, (float)y});

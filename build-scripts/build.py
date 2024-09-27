@@ -21,7 +21,8 @@ def copy_file(source_path, destination_path):
         print(f"File copy failed: {str(e)} \n\tsrc= '{source_path}' \n\tdst= '{destination_path}' ")
 
 def move_library_files(build_type, source, destination):
-    copy_file(f'{library_binaries}/bin/{source}', f'{working_dir}/{destination}/{build_type}/{source}')
+    copy_file(f'{library_binaries}/bin/{source}.dll', f'{working_dir}/{destination}/{build_type}/{source}.dll')
+    copy_file(f'{library_binaries}/lib/{source}.lib', f'{working_dir}/{destination}/{build_type}/{source}.lib')
 
 def create_build_dir():
     print(f"Creating home for build and binaries!")
@@ -32,8 +33,8 @@ def install_lib(library, build_type, install_dir, configure="", build="", instal
     print(f"Installing {library}...")
     library_dir = os.path.join(working_dir, "external", library)
     build_dir = os.path.join(library_dir, "build")
-    #if os.path.isdir(build_dir):
-        #return
+    if os.path.isdir(build_dir):
+        return
 
     os.makedirs(build_dir, exist_ok=True)
     os.chdir(build_dir)
@@ -101,6 +102,7 @@ def main():
     install_project(args.build_type, args.install_dir)
 
     if args.visualization == "ON":
+        # install_project("Debug", library_binaries)
         install_lib("sdl_2.28.1", args.build_type, args.install_dir)
         install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
 
@@ -108,6 +110,7 @@ def main():
         install_lib("googletest", args.build_type, args.install_dir)
         
     if args.benchmark == "ON":
+        move_library_files("Release", "AIL", "benchmarks/build")
         install_lib("googlebenchmark", args.build_type, args.install_dir, configure="-DBENCHMARK_DOWNLOAD_DEPENDENCIES=on")
         build_benchmarks(args.build_type)
     

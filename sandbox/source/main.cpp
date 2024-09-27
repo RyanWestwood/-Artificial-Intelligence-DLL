@@ -23,6 +23,7 @@ std::vector<Vector2> CreatePath(std::vector<ai::path::Node*>& map,
   switch(algorithm)
   {
     SEARCH_ALGORITHM_CASE(A_Star)
+    SEARCH_ALGORITHM_CASE(A_StarStatic)
     SEARCH_ALGORITHM_CASE(BestFirst)
     SEARCH_ALGORITHM_CASE(BiDirectional)
     SEARCH_ALGORITHM_CASE(DepthFirst)
@@ -56,11 +57,11 @@ int main(int argc, char* args[])
     // Create obstacles.
     for(int i = 10; i < 30; i++)
     {
-      //node_map.at(23 * MAP_WIDTH + i)->SetObstacle(ai::path::All);
+      node_map.at(23 * MAP_WIDTH + i)->SetObstacle(ai::path::All);
     }
 
     // Create path.
-    std::vector<Vector2> as_path = CreatePath(node_map, start, goal);
+    std::vector<Vector2> as_path = CreatePath(node_map, start, goal, SearchAlgorithm::A_StarStatic);
 
     // Draw the map along with any obstacles. 
     // Background = White
