@@ -43,7 +43,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 # Copy all the dll's required to run 
-add_custom_command(TARGET Sandbox
+add_custom_command(TARGET ${PROJECT_NAME}
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy 
       ${PROJECT_SOURCE_DIR}/../library_binaries/bin/SDL2.dll 

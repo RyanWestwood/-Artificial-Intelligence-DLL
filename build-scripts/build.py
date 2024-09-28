@@ -106,8 +106,8 @@ def main():
     #     install_lib("sdl_2.28.1", args.build_type, args.install_dir)
     #     install_lib("sdlimage_2.6.3", args.build_type, args.install_dir)
 
-    # if args.test == "ON":
-    #     install_lib("googletest", args.build_type, args.install_dir)
+    if args.test == "ON":
+        install_lib("googletest", args.build_type, args.install_dir)
         
     # if args.benchmark == "ON":
     #     move_library_files("Release", "AIL", "benchmarks/build")

@@ -40,24 +40,7 @@ TEST(AddTest, PositiveNumbers)
   EXPECT_DOUBLE_EQ(0.1 + 0.2, 0.3);
 }
 
-// Run the tests
-constexpr int MAP_WIDTH  = 10;
-constexpr int MAP_HEIGHT = 10;
-
-//std::vector<Vector2> CreatePath(std::vector<ai::path::NodePtr>& map,
-//                                Vector2                         start,
-//                                Vector2                         goal,
-//                                SearchAlgorithm                 algorithm = SearchAlgorithm::A_Star,
-//                                ai::path::Obstacle              layer     = ai::path::Obstacle::None)
-//{
-//  ai::path::NodePtr start_node = map.at(start.x + (start.y * MAP_WIDTH));
-//  ai::path::NodePtr goal_node  = map.at(goal.x + (goal.y * MAP_WIDTH));
-//  return A_Star(map, start_node, goal_node, layer);
-//}
-
 int main(int argc, char** argv)
 {
-  // std::vector<ai::path::NodePtr> map  = ai::path::CreateNodeMap(MAP_WIDTH, MAP_HEIGHT);
-  //std::vector<Vector2>           path = CreatePath(map, Vector2{0, 0}, Vector2{5, 5}, SearchAlgorithm::A_Star);
   return 0;
 }

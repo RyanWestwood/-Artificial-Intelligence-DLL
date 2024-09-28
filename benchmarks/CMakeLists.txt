@@ -15,12 +15,28 @@ link_directories(${GOOGLEBENCH_ROOT}/lib)
 # Create program
 add_executable(${PROJECT_NAME} main.cpp)
 
-# Link the libraries 
-target_link_libraries(${PROJECT_NAME} benchmark::benchmark)
-target_link_libraries(${PROJECT_NAME} "${PROJECT_DIRECTORY}/library_binaries/lib/AIL.lib")
+# Set library files 
+set(LIB_FILES 
+    benchmark::benchmark
+    $<IF:$<CONFIG:Debug>,${PROJECT_SOURCE_DIR}/../library_binaries/lib/dAIL.lib,${PROJECT_SOURCE_DIR}/../library_binaries/lib/AIL.lib>
+) 
+
+# Specify output directories for different build configurations
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/Debug
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/Release
+)
 
 # Copy all the dll's required to run 
-add_custom_command(TARGET Benchmarks
+add_custom_command(TARGET ${PROJECT_NAME}
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/../library_binaries/bin/AIL.dll ${AI_Benchmarks_BINARY_DIR}/.
+  # Conditional copying for AIL.dll based on the build configuration
+  COMMAND ${CMAKE_COMMAND} -E copy 
+  $<IF:$<CONFIG:Debug>,${PROJECT_SOURCE_DIR}/../library_binaries/bin/Debug/dAIL.dll,${PROJECT_SOURCE_DIR}/../library_binaries/bin/AIL.dll> 
+  $<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/Debug/.,${CMAKE_BINARY_DIR}/Release/.>
 )
+
+# Library directory includes and linking
+target_link_libraries(${PROJECT_NAME} ${LIB_FILES})
+include_directories(${GOOGLEBENCH_ROOT}/include)
+link_directories(${GOOGLEBENCH_ROOT}/lib)

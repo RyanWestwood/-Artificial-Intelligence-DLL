@@ -37,7 +37,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 # Define options for each subdirectory
 option(BUILD_SANDBOX "Build Sandbox" ON)
 option(BUILD_BENCHMARKS "Build Benchmarks" ON)
-option(BUILD_TESTS "Build Tests" ON)
+option(BUILD_TESTS "Build Tests" OFF)
 
 # Conditionally add subdirectories based on the options
 if(BUILD_SANDBOX)
@@ -48,9 +48,9 @@ if(BUILD_BENCHMARKS)
     add_subdirectory(benchmarks)
 endif()
 
-# if(BUILD_TESTS)
-#     add_subdirectory(tests)
-# endif()
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
 
 # Install targets for Debug and Release
 install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
