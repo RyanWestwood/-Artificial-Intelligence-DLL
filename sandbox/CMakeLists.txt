@@ -46,8 +46,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 add_custom_command(TARGET Sandbox
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy 
+      ${PROJECT_SOURCE_DIR}/../library_binaries/bin/SDL2.dll 
       $<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/Debug/.,${CMAKE_BINARY_DIR}/Release/.>
-      ${Sandbox_BINARY_DIR}/.
   COMMAND ${CMAKE_COMMAND} -E copy 
       ${PROJECT_SOURCE_DIR}/../library_binaries/bin/SDL2_image.dll 
       $<IF:$<CONFIG:Debug>,${CMAKE_BINARY_DIR}/Debug/.,${CMAKE_BINARY_DIR}/Release/.>

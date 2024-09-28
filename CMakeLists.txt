@@ -34,6 +34,24 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME_RELEASE "${PROJECT_NAME}" # AIL.dll for Release
 )
 
+# Define options for each subdirectory
+option(BUILD_SANDBOX "Build Sandbox" ON)
+option(BUILD_BENCHMARKS "Build Benchmarks" ON)
+option(BUILD_TESTS "Build Tests" ON)
+
+# Conditionally add subdirectories based on the options
+if(BUILD_SANDBOX)
+    add_subdirectory(sandbox)
+endif()
+
+if(BUILD_BENCHMARKS)
+    add_subdirectory(benchmarks)
+endif()
+
+# if(BUILD_TESTS)
+#     add_subdirectory(tests)
+# endif()
+
 # Install targets for Debug and Release
 install(TARGETS ${PROJECT_NAME} EXPORT AI_LIBS
     CONFIGURATIONS Debug Release
